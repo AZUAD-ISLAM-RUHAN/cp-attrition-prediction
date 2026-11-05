@@ -1,0 +1,345 @@
+[
+{
+"q": 1,
+"text": "Current Semester (like 1st,2nd..)",
+"branch": "All respondents",
+"options": "Short free-text / numeric answer",
+"n": 96
+},
+{
+"q": 2,
+"text": "Current CGPA",
+"branch": "All respondents",
+"options": "Short free-text / numeric answer",
+"n": 96
+},
+{
+"q": 3,
+"text": "Did you know programming before university?",
+"branch": "All respondents",
+"options": "No; Yes",
+"n": 96
+},
+{
+"q": 4,
+"text": "Grade in Data Structures and Algorithms (DSA) course",
+"branch": "All respondents",
+"options": "A+ or A; B+ or B; C+ or C; D or below; Haven't taken it yet",
+"n": 96
+},
+{
+"q": 5,
+"text": "Mathematics skills rating",
+"branch": "All respondents",
+"options": "Scale 1 (lowest) to 5 (highest)",
+"n": 96
+},
+{
+"q": 6,
+"text": "Your current CP status?",
+"branch": "All respondents",
+"options": "Currently active in CP; Never started CP; Previously did CP, but stopped",
+"n": 96
+},
+{
+"q": 7,
+"text": "Hours per week spent on CP",
+"branch": "Branch A: currently active (Q6 = \"Currently active in CP\")",
+"options": "Short free-text / numeric answer",
+"n": 22
+},
+{
+"q": 8,
+"text": "Platforms used regularly",
+"branch": "Branch A: currently active (Q6 = \"Currently active in CP\")",
+"options": "Multiple selection: AtCoder; CodeChef; Codeforces; HackerRank; LeetCode; Others; Vjudge",
+"n": 22
+},
+{
+"q": 9,
+"text": "Current rating on main platform (write 0 if no rating)",
+"branch": "Branch A: currently active (Q6 = \"Currently active in CP\")",
+"options": "Short free-text / numeric answer",
+"n": 22
+},
+{
+"q": 10,
+"text": "Number of contests participated per month",
+"branch": "Branch A: currently active (Q6 = \"Currently active in CP\")",
+"options": "Short free-text / numeric answer",
+"n": 22
+},
+{
+"q": 11,
+"text": "Do you do upsolving after contests?",
+"branch": "Branch A: currently active (Q6 = \"Currently active in CP\")",
+"options": "Always; Never; Rarely; Sometimes",
+"n": 22
+},
+{
+"q": 12,
+"text": "New problems solved per month",
+"branch": "Branch A: currently active (Q6 = \"Currently active in CP\")",
+"options": "Short free-text / numeric answer",
+"n": 22
+},
+{
+"q": 13,
+"text": "Time spent on a problem before checking editorial",
+"branch": "Branch A: currently active (Q6 = \"Currently active in CP\")",
+"options": "1-2 hours; 30 minutes - 1 hour; Less than 15 minutes; More than 2 hours",
+"n": 22
+},
+{
+"q": 14,
+"text": "Understanding of standard data structures",
+"branch": "Branch A: currently active (Q6 = \"Currently active in CP\")",
+"options": "Scale 1 (lowest) to 5 (highest)",
+"n": 22
+},
+{
+"q": 15,
+"text": "Comfortable with DP/Graph Theory problems?",
+"branch": "Branch A: currently active (Q6 = \"Currently active in CP\")",
+"options": "No; Somewhat; Yes",
+"n": 22
+},
+{
+"q": 16,
+"text": "Programming language used for CP",
+"branch": "Branch A: currently active (Q6 = \"Currently active in CP\")",
+"options": "C++",
+"n": 22
+},
+{
+"q": 17,
+"text": "Mental state when rating decreases",
+"branch": "Branch A: currently active (Q6 = \"Currently active in CP\")",
+"options": "Scale 1 (lowest) to 5 (highest)",
+"n": 22
+},
+{
+"q": 18,
+"text": "Experience burnout frequently?",
+"branch": "Branch A: currently active (Q6 = \"Currently active in CP\")",
+"options": "No; Sometimes; Yes, frequently",
+"n": 22
+},
+{
+"q": 19,
+"text": "Feel demotivated comparing with friends ratings",
+"branch": "Branch A: currently active (Q6 = \"Currently active in CP\")",
+"options": "Scale 1 (lowest) to 5 (highest)",
+"n": 22
+},
+{
+"q": 20,
+"text": "Motivation for doing CP",
+"branch": "Branch A: currently active (Q6 = \"Currently active in CP\")",
+"options": "Both; I enjoy it; Only for job",
+"n": 22
+},
+{
+"q": 21,
+"text": "Fear of failure prevents contest participation?",
+"branch": "Branch A: currently active (Q6 = \"Currently active in CP\")",
+"options": "No; Sometimes; Yes, often",
+"n": 22
+},
+{
+"q": 22,
+"text": "Have a mentor/senior guide?",
+"branch": "Branch A: currently active (Q6 = \"Currently active in CP\")",
+"options": "No; Yes",
+"n": 22
+},
+{
+"q": 23,
+"text": "University programming club support quality",
+"branch": "Branch A: currently active (Q6 = \"Currently active in CP\")",
+"options": "Scale 1 (lowest) to 5 (highest)",
+"n": 22
+},
+{
+"q": 24,
+"text": "Problems with internet/PC access?",
+"branch": "Branch A: currently active (Q6 = \"Currently active in CP\")",
+"options": "No; Yes",
+"n": 22
+},
+{
+"q": 25,
+"text": "Academic pressure affects CP time?",
+"branch": "Branch A: currently active (Q6 = \"Currently active in CP\")",
+"options": "No; Sometimes; Yes, often",
+"n": 22
+},
+{
+"q": 26,
+"text": "Family pressure to focus only on grades?",
+"branch": "Branch A: currently active (Q6 = \"Currently active in CP\")",
+"options": "No; Yes",
+"n": 22
+},
+{
+"q": 27,
+"text": "Taken 15+ consecutive days break in last 3 months?",
+"branch": "Branch A: currently active (Q6 = \"Currently active in CP\")",
+"options": "No; Yes",
+"n": 22
+},
+{
+"q": 28,
+"text": "Ever seriously thought about quitting CP?",
+"branch": "Branch A: currently active (Q6 = \"Currently active in CP\")",
+"options": "No; Yes",
+"n": 22
+},
+{
+"q": 29,
+"text": "See yourself active in CP 6 months from now?",
+"branch": "Branch A: currently active (Q6 = \"Currently active in CP\")",
+"options": "Maybe; Yes",
+"n": 22
+},
+{
+"q": 30,
+"text": "Duration of CP practice before quitting",
+"branch": "Branch B: previously active, stopped (Q6 = \"Previously did CP, but stopped\")",
+"options": "1-2 years; 1-6 months; 6 months - 1 year; Less than 1 month; More than 2 years",
+"n": 51
+},
+{
+"q": 31,
+"text": "Main reasons for quitting",
+"branch": "Branch B: previously active, stopped (Q6 = \"Previously did CP, but stopped\")",
+"options": "Academic pressure (CGPA focus); Interest in other tracks (Web Dev/ML); Lack of guidance or mentor; Mental stress or burnout; Others; Rating not increasing/no progress",
+"n": 51
+},
+{
+"q": 32,
+"text": "Highest rating before quitting (0 if no rating)",
+"branch": "Branch B: previously active, stopped (Q6 = \"Previously did CP, but stopped\")",
+"options": "Short free-text / numeric answer",
+"n": 51
+},
+{
+"q": 33,
+"text": "Practice habit in the month before quitting",
+"branch": "Branch B: previously active, stopped (Q6 = \"Previously did CP, but stopped\")",
+"options": "Became irregular; Regular; Stopped completely",
+"n": 51
+},
+{
+"q": 34,
+"text": "Ever seriously thought about quitting CP?",
+"branch": "Branch B: previously active, stopped (Q6 = \"Previously did CP, but stopped\")",
+"options": "No; Yes",
+"n": 51
+},
+{
+"q": 35,
+"text": "Had mentor/senior support?",
+"branch": "Branch B: previously active, stopped (Q6 = \"Previously did CP, but stopped\")",
+"options": "No; Yes",
+"n": 51
+},
+{
+"q": 36,
+"text": "Have you taken 15+ consecutive days of break during your CP journey?",
+"branch": "Branch B: previously active, stopped (Q6 = \"Previously did CP, but stopped\")",
+"options": "No; Yes",
+"n": 51
+},
+{
+"q": 37,
+"text": "Understanding of standard data structures when you quit",
+"branch": "Branch B: previously active, stopped (Q6 = \"Previously did CP, but stopped\")",
+"options": "Scale 1 (lowest) to 5 (highest)",
+"n": 51
+},
+{
+"q": 38,
+"text": "Could you see yourself quitting CP 6 months prior?",
+"branch": "Branch B: previously active, stopped (Q6 = \"Previously did CP, but stopped\")",
+"options": "Maybe; No; Yes",
+"n": 51
+},
+{
+"q": 39,
+"text": "How many people in your friend circle did CP?",
+"branch": "Branch B: previously active, stopped (Q6 = \"Previously did CP, but stopped\")",
+"options": "1-2 people; 3-5 people; More than 5 people",
+"n": 48
+},
+{
+"q": 40,
+"text": "Knowledge about CP",
+"branch": "Branch C: never started (Q6 = \"Never started CP\")",
+"options": "Heard something about it; No, don't know anything; Yes, I know well",
+"n": 23
+},
+{
+"q": 41,
+"text": "Main reasons for not starting CP",
+"branch": "Branch C: never started (Q6 = \"Never started CP\")",
+"options": "Multiple selection: Didn't know it was important; Don't know where to start; Lack of time (academic pressure); More interest in development (Web/App); No guidelines or mentor; Not interested; Others; Seems too difficult; Weakness in mathematics",
+"n": 23
+},
+{
+"q": 42,
+"text": "CP mandatory for good job?",
+"branch": "Branch C: never started (Q6 = \"Never started CP\")",
+"options": "Scale 1 (lowest) to 5 (highest)",
+"n": 23
+},
+{
+"q": 43,
+"text": "Current focus area",
+"branch": "Branch C: never started (Q6 = \"Never started CP\")",
+"options": "Academic results (CGPA); Data Science/Machine Learning; Nothing decided yet; Web/App Development",
+"n": 23
+},
+{
+"q": 44,
+"text": "Ever tried solving 1 problem on online judge?",
+"branch": "Branch C: never started (Q6 = \"Never started CP\")",
+"options": "No, never tried; Yes, solved 1-2 then stopped; Yes, tried but couldn't solve",
+"n": 23
+},
+{
+"q": 45,
+"text": "Would start CP if good mentorship existed?",
+"branch": "Branch C: never started (Q6 = \"Never started CP\")",
+"options": "Maybe; No; Yes, definitely",
+"n": 23
+},
+{
+"q": 46,
+"text": "Medium chosen for building programming logic",
+"branch": "Branch C: never started (Q6 = \"Never started CP\")",
+"options": "Multiple selection: LeetCode/interview prep sites; Only lab assignments; Project-based learning; YouTube/online courses",
+"n": 22
+},
+{
+"q": 47,
+"text": "Number of friends doing CP",
+"branch": "Branch C: never started (Q6 = \"Never started CP\")",
+"options": "1-2 people; More than 5 people",
+"n": 17
+},
+{
+"q": 48,
+"text": "Interest in starting CP in future?",
+"branch": "Branch C: never started (Q6 = \"Never started CP\")",
+"options": "Maybe, if opportunity comes; No, have other plans; Yes, want to learn",
+"n": 23
+},
+{
+"q": 49,
+"text": "Would start if given easy roadmap and mentor?",
+"branch": "Branch C: never started (Q6 = \"Never started CP\")",
+"options": "Maybe; Yes",
+"n": 23
+}
+]

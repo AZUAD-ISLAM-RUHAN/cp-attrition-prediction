@@ -1,0 +1,442 @@
+To: Editorial Desk, AIUB Journal of Science and Engineering (AJSE) <ajse@aiub.edu>
+Cc: Dr. M. Tanseer Ali; Prof. Dr. Md. Abdur Rahman; Md. Manirul Islam
+From: Azuad Islam Ruhan (corresponding author), on behalf of all authors and our supervisor
+Re: Paper ID 1999, "Predicting Student Attrition in Competitive Programming: A Large-Scale Study
+Integrating Survey Insights and Global Behavioral Logs", AJSE 25(2):231-243 (2026), DOI
+10.53799/vka5w161
+Subject: Point-by-point response to the Temporary Retraction and Formal Inquiry Notice of 3 November
+2026
+Date: 6 November 2026
+
+Dear Editor,
+
+We thank the Editorial Desk for the care with which the concerns about our article have been set
+out, and for giving us the opportunity to respond before any final decision. We have taken every
+point seriously. All authors and our supervisor re-examined the study from the raw materials upward:
+the Google Forms response sheet, the Codeforces feature file and API records, every script, and
+every sentence, number, table, figure and reference of the published article.
+
+We followed three working rules. First, no number was edited by hand: every value in the corrected
+manuscript is produced by one deposited script (scripts/revision/r3_inquiry_reanalysis.py, seed 42,
+pinned library versions), which we ran twice with identical results. Second, the corrected
+manuscript was built paragraph by paragraph from the published text, and we enclose a tracked-
+changes version so that every changed word can be seen against the published article. Third, where
+the inquiry rests on a reading of the published text that differs from what the paper and code
+actually contain, we say so respectfully and show the evidence. Where the inquiry identified a
+genuine error, we say that plainly and show the correction.
+
+In summary:
+  - The rating matching was performed, and the published Table III shows it. Re-running the
+    deposited script r1 reproduces seven of the nine classifiers to the third decimal in each of its
+    columns (B) and (C). The remaining differences are at most 0.008 and arise from library
+    versions. The values the Desk found identical to the preprint belong to the descriptive results
+    ("Behavioral Trends Preceding Attrition", Figs. 4-8), which was carried over from the first
+    submission and not recomputed on the matched cohort. That was our error, and it is corrected.
+  - During re-verification we found one further problem: 880 active accounts had incomplete
+    retrieved submission histories. They inflated the published contrast in contest frequency, are
+    now excluded by an explicit rule, and are reported openly (Item 1.0).
+  - On the corrected, rating-matched cohort, users who withdrew still differ from matched active
+    users. They entered fewer contests, solved fewer problems, and were slightly less accurate on
+    math and data-structure problems. Behavioral features predict attrition above chance (best
+    repeated-CV ROC-AUC 0.622; Random Forest 0.620, permutation p = 0.005), but modestly, and the
+    manuscript now reports them against trivial baselines.
+  - The survey classifier, the Early Warning System and the Skill-Application Paradox as a finding
+    are withdrawn. The paradox remains only as a hypothesis, because its behavioral half rested on
+    survey items that are not comparable across branches.
+  - The non-existent references the Desk identified ([3], [19], [20]) and the incorrect [22] are
+    entries of our original submission. They were replaced in the published PDF but still stand in
+    the Crossref deposit and in the arXiv preprint. Every reference has now been verified, and the
+    remaining metadata and attribution errors in the published list ([5], [9], [10]) are corrected.
+
+Data availability. As the Editor requested, all data and code needed to verify the work are publicly
+available at https://github.com/AZUAD-ISLAM-RUHAN/cp-attrition-prediction. The two data files
+analysed (data/cf_attrition_features.csv and data/survey_responses.csv) have been public in this
+repository since 19 September 2026, unchanged, and are byte-identical to the files from which every
+number of the corrected manuscript is computed; the corrected analysis code, documents and
+reproduction outputs have now been added to it. A copy is also attached to this e-mail
+(AJSE_1999_Public_Data_and_Code.zip). It contains:
+  (a) Codeforces data: the released feature file (6,927 accounts, handles pseudonymised with a
+salted hash) and the rating-matched modelling set exactly as analysed (n = 1,816, with labels, all
+features, peak rating and data-quality fields).
+  (b) Survey data: all 96 anonymised responses (no names, IDs, e-mails or institutions), the
+response date of each submission so that the collection window can be checked, and the analysis set
+(n = 64). The public copy was verified cell by cell against the original Google Forms sheet.
+  (c) Complete code, from API collection to figures, including the first-submission and first-round
+revision scripts, kept unchanged so that every published number can be traced. A single command
+(reproduce_all.sh) regenerates every number, table and figure, as well as both versions of the
+corrected manuscript, and checks them against the submitted outputs.
+  (d) results/r3_results.json, containing every number of the corrected manuscript in machine-
+readable form, and the logs of a from-scratch reproduction run.
+  (e) The full questionnaire, a data dictionary, the ethics and data-handling record, and the
+reference-verification record.
+Raw API records that contain Codeforces handles, and the exact submission times of the survey, are
+not posted publicly because they are personal or quasi-identifying data. They are available to the
+Editorial Desk on request, and scripts/revision/r0_rebuild_from_raw_jsonl.py rebuilds every stage
+count from the raw records.
+
+Format. The corrected manuscript is laid out on the AJSE camera-ready template
+(AJSE_Template_2020-OTH): US Letter, two columns, 10-point text, small-caps section headings,
+lettered subsections, table titles in small caps above each table, and figures redrawn at their
+printed size (400 dpi, Arial, 8-point labels, sub-figures labelled (a), (b), ...). The abstract was
+shortened to 249 words to meet the template's limit of 150-250 words. These layout changes alter no
+number. Every template rule is checked automatically (docs/AJSE_template_conformance.md).
+Attached to this e-mail: (1) this response letter; (2) the corrected manuscript, clean (DOCX and
+PDF); (3) the corrected manuscript with tracked changes against the published article (DOCX and
+PDF); (4) the ethics approval letter REC/MU/2026/007; (5) a supplementary verification file
+(published vs. reproduced values, reference verification, change map and draft correction notice);
+and (6) the public data and code archive.
+
+====================================================================================================
+ITEM 1.0  AN ADDITIONAL PROBLEM WE FOUND OURSELVES
+====================================================================================================
+(Reported first because it bears on Items 1.1-1.3.)
+While rebuilding the cohort we checked every account for internal consistency. Every rated contest
+requires at least one submission, yet 774 accounts in the released file had fewer retrieved
+submissions than rated contests (a median of 6 submissions against 24 rated contests, all dated
+within the month before collection). A further 114 accounts showed more than 15 rated contests per
+month of submission span; the highest value among inactive accounts was 9. All 888 of these accounts
+were active, and 880 remain after the published peak-rating filter. Their retrieved histories are
+incomplete, so their submission-derived features are not reliable. In the published unmatched
+sample, 148 of them raised the active mean contest rate to 7.27 per month; without them the mean is
+1.85. The published "83.7 percent fall in contest participation" was therefore largely an artifact
+of incomplete data.
+
+What we changed. Such accounts are excluded by an explicit rule (Dataset 1 subsection, new data-
+quality paragraph; Table I). The primary model is also reported without the rule, so the Desk can
+see the rule's effect (best AUC 0.663 without it, 0.622 with it). The raw records allow these
+accounts to be checked directly.
+
+====================================================================================================
+ITEM 1  METHODOLOGICAL AND STATISTICAL INCONSISTENCIES
+====================================================================================================
+
+1.1  Specification A and values identical to the unmatched preprint
+-------------------------------------------------------------------
+
+INQUIRY (verbatim): "The rating-matched analysis (Specification A) reports descriptive statistics,
+p-values, feature importances, and proportions identical to your earlier unmatched preprint, raising
+questions about whether you performed the described matching procedure."
+
+What we found. We respectfully clarify one point of reading and acknowledge one error. The
+clarification is that in the published Table III, Specification (A) is labelled "Unmatched". It was
+included on purpose, as the paper says, "so the effect of the confound is visible", and is therefore
+identical to the preprint by design. The rating-matched specifications are (B) and (C). They were
+computed on the matched cohort, and the deposited script r1 reproduces them: for (C), logistic
+regression 0.639, KNN 0.589, SVM 0.652, XGBoost 0.652, LightGBM 0.645, MLP 0.608 and the ensemble
+0.679 are identical to the published values. Random Forest (0.682 published) and the Decision Tree
+differ only in the third decimal across library versions. The published Table I is also reproduced
+exactly from the data: 6,927, then 6,892, then 5,573 and 1,319, then 908 and 411, with a matching
+pool of 4,047.
+
+The error is that the descriptive part of the paper was not recomputed on the matched cohort. The
+subsection "Behavioral Trends Preceding Attrition" and Figs. 4-8 are the first-submission results on
+the unmatched cohort, and the five figure files are byte-identical to those of the first submission.
+This includes 7.27 vs. 1.19 contests per month (83.7 percent), 2,646 vs. 3,059 minutes (15.6
+percent), 13.70 vs. 7.86 problems per month (42.7 percent), burnout of 45.0 vs. 29.8 percent, and
+upsolving of 2.94 vs. 2.81. The abstract and conclusion repeated these figures. The conclusion also
+stated that "these differences persist when the two cohorts are held to the same peak-rating
+ceiling", which we had not computed. The feature importances in Fig. 14 are the unaudited ones, as
+their caption states.
+
+What we changed. Every descriptive statistic, test and proportion is now computed on the rating-
+matched cohort (first Results subsection, new Table III, Figs. 2-3), and the matched cohort is
+deposited. The following values show that matching changes the results:
+  - Peak rating: standardized mean difference 0.66 unmatched -> 0.055 matched; Kolmogorov-Smirnov D
+    0.282 -> 0.061 (p = 0.071).
+  - Contests per month: published (unmatched means) 7.27 vs 1.19; corrected (matched medians, active
+    vs attrition) 1.15 vs 0.89, rank-biserial r = -0.18 [-0.23, -0.13], Holm p < 0.001.
+  - Problems solved per month: published (unmatched means) 13.7 vs 7.86; corrected (matched medians,
+    active vs attrition) 8.80 vs 5.35, rank-biserial r = -0.28 [-0.33, -0.23], Holm p < 0.001.
+  - Struggle time (min): published (unmatched means) 2,646 vs 3,059; corrected (matched medians,
+    active vs attrition) 587 vs 424, rank-biserial r = -0.05 [-0.10, 0.00], Holm p = 0.191.
+  - Math solve rate: published (unmatched means) 0.54 vs 0.47; corrected (matched medians, active vs
+    attrition) 0.50 vs 0.46, rank-biserial r = -0.13 [-0.18, -0.08], Holm p < 0.001.
+  - Data-structure solve rate: published (unmatched means) 0.48 vs 0.40; corrected (matched medians,
+    active vs attrition) 0.43 vs 0.40, rank-biserial r = -0.10 [-0.15, -0.05], Holm p = 0.001.
+  - Activity-decay flag: published 29.8% vs 45.0%; corrected 32.7% vs 45.0%.
+Withdrawn as a result: the 83.7 percent fall, the 15.6 percent rise in struggle time, the 42.7
+percent figure, and the editorial-dependency reading of upsolving (no difference, Holm p = 0.334).
+What remains is smaller and holds: lower contest and practice frequency and slightly lower topic-
+level accuracy, all significant after Holm correction, with |r| <= 0.28.
+
+1.2  Activity Trend Ratio / attrition criteria vs. burnout percentages and Fig. 7
+---------------------------------------------------------------------------------
+
+INQUIRY (verbatim): "Discrepancies between the defined Activity Trend Ratio / Attrition criteria and
+the reported burnout percentages and plot distributions (e.g., Fig. 7)."
+
+What we found. The published article describes the Activity Trend Ratio in three ways that do not
+agree with one another or with the code. The Dataset 1 subsection says the recent and prior windows
+are "the three and six calendar months preceding T_obs". The Feature Engineering subsection calls it
+"the ratio of submissions in the recent three months to those in the prior three". The Results
+define burnout as activity "falling by more than half over the final three months", and the Fig. 7
+axis reads "recent 6mo / prior 6mo". The code computes none of these. It divides the submissions in
+the second half of each user's own submission span (first to last retrieved submission) by those in
+the first half, and flags burnout when the ratio is below 0.5. Under the calendar definition, every
+attrition user, having no submissions in the last three months, would have a ratio of 0, which Fig.
+7 plainly does not show; this is the discrepancy the Desk observed. Fig. 7 also paired a box plot of
+the raw ratio (t-test p = 0.610 on a heavy-tailed variable whose mean was higher for attrition
+users, 3.91 vs 3.30) with bars of the flag, from the unmatched cohort.
+
+What we changed. The implemented definition is now stated once (Feature Engineering subsection) and
+used consistently in the text, the figure and the code, including the fallback value of 1 when the
+first half is empty. On the matched cohort the flag occurs in 45.0% vs 32.7% of users (difference
+12.3 percentage points, 95% CI 7.9-16.7; new Fig. 3, with Wilson intervals). We also state that, for
+inactive users, the second half of the span ends at the final submission, so part of this difference
+follows from the label definition. For that reason the ratio is reported but not modelled. The
+attrition criterion is stated precisely: last submission at least three months before T_obs, and
+peak rating below 1500. We also correct a factual slip: 1500 is not "the Codeforces Specialist
+boundary" (the Specialist band is 1400-1599), so it is described as a study-specific cut-off.
+
+1.3  Inconsistent data-leakage audit between contest and problem-solving variables
+----------------------------------------------------------------------------------
+
+INQUIRY (verbatim): "Inconsistent application of the data leakage audit between contest and problem-
+solving variables."
+
+What we found. The published audit removed contests per month (reason: a denominator "anchored to
+T_obs") but kept problems solved per month. Table V describes both as "divided by account tenure".
+In the code, both are in fact divided by the same submission span, so they share a single
+denominator. The audit also kept the Intensity Ratio, which is built from both. The rule was
+therefore applied to the contest variable but not to its problem-solving counterparts. Table V also
+misdescribed post-drop recovery as "submissions in the 30 days after a rating fall"; the code
+computes the mean rating change in the contest after a drop. The published Eq. (1) for the Intensity
+Ratio does match the code.
+
+What we changed. One rule is now applied throughout: every feature whose value depends on the length
+or end of the observed activity window is removed (account age, both monthly rates, the trend
+ratio). The Intensity Ratio is replaced by its exactly window-invariant form, problems solved per
+rated contest; the span cancels between numerator and denominator (Spearman rho = 0.989). Table VI
+(Appendix A) gives every definition as implemented, with the reason for each exclusion. Three
+specifications are reported side by side (Table IV, Fig. 6):
+  - B, 12 features: best repeated-CV ROC-AUC 0.797 +/- 0.024 (Soft-Voting Ensemble); Random Forest
+    0.786.
+  - C, published audit (9): best repeated-CV ROC-AUC 0.660 +/- 0.028 (Soft-Voting Ensemble); Random
+    Forest 0.657.
+  - D, consistent audit (8) [primary]: best repeated-CV ROC-AUC 0.622 +/- 0.026 (Soft-Voting
+    Ensemble); Random Forest 0.620.
+  - D without the data-quality rule: best repeated-CV ROC-AUC 0.663 +/- 0.028 (Random Forest).
+
+1.4  Confounding survey item mappings (Q11/Q33; break-history timelines)
+------------------------------------------------------------------------
+
+INQUIRY (verbatim): "Confounding survey item mappings (e.g., upsolving Q11/Q33 alignment and break
+history timelines)."
+
+What we found. The Desk is right on both. The Dataset 2 subsection and Appendix B aligned Q11
+(active: post-contest upsolving, always/sometimes/rarely/never) with Q33 (stopped: practice habit in
+the month before quitting) via regular->sometimes, became irregular->rarely, stopped
+completely->never. These are different behaviors, and the mapping puts even "regular" practice below
+the top active answer. The resulting chi-square (23.18, Table II), its 35.5 percent feature
+importance (Fig. 10), and the "behavioral half" of the Skill-Application Paradox all reflect the
+coding, not behavior. Q27 (a break in the last three months) and Q36 (a break at any point in the CP
+journey) refer to different periods, so combining them does not create a comparable variable.
+
+What we changed. Only items asked identically of everyone (Q3, Q4, Q5) or worded in parallel
+(Q14/Q37, Q22/Q35, Q28/Q34, with a recall caveat) enter tests or models (Dataset 2 subsection). Q11,
+Q33, Q27, Q36 and Q39 are reported within their branch only. The upsolving result, Fig. 10 and the
+paradox as a finding are withdrawn, and Appendix B now states which items are and are not aligned.
+
+1.5  Chi-square statistics (Table II) and conflicting conclusions between the layers
+------------------------------------------------------------------------------------
+
+INQUIRY (verbatim): "Unreproducible Chi-square test statistics (Table II) and conflicting
+conclusions between Codeforces logs and survey data layers."
+
+What we found. Table II was produced with scipy's chi2_contingency at its default settings, which
+apply Yates' continuity correction to 2x2 tables only, and the paper did not say so. Anyone
+computing the ordinary Pearson statistic therefore obtains different values: mentor support 2.221
+(as published, Yates) vs 3.148 (Pearson), prior consideration of quitting 1.478 vs 2.309, prior
+experience 0.215 vs 0.532, and long break 0.106 vs 0.360. Several tables also have expected counts
+below 5, where asymptotic p-values are unreliable. The upsolving and long-break rows rest on the
+non-comparable items described in 1.4. On the conclusions: The Discussion said the two layers
+"return findings that point the same way" on practice between contests. Once the upsolving item is
+set aside, they do not. In the platform data, attrition users were slightly less accurate, whereas
+in the survey, students who stopped rated themselves slightly higher.
+
+What we changed. The new Table II reports the six comparable items (n = 64) with Pearson chi-square
+without continuity correction (stated explicitly), exact p-values (Fisher for 2x2, Monte-Carlo with
+10,000 shuffles otherwise), effect sizes with confidence intervals, and Holm and Benjamini-Hochberg
+adjustments. No survey difference survives; the smallest Holm-adjusted p is 0.161 (mathematics self-
+rating, 3.93 vs 3.41). The Discussion now states that the two analyses neither confirm each other
+nor point the same way, and treats them as separate evidence.
+
+1.6  Below-baseline performance; training errors shown as Early Warning System signatures
+-----------------------------------------------------------------------------------------
+
+INQUIRY (verbatim): "Model performance falling below trivial baseline classifiers, along with
+classifier training errors presented as "Early Warning System" signatures."
+
+What we found. On a balanced cohort, always predicting attrition yields F1 = 2/3. Under the
+published audited Specification (C), seven of nine classifiers fall below that value, and the
+published F1 of 0.682 for Random Forest is only marginally above it. Survey F1 values should
+likewise have been read against 0.792, the F1 of always predicting the majority class (42 of 64).
+The Early Warning System scored the same 22 active students on whom the model was trained. Even out
+of fold, an active student scored as high risk is a misclassification of a known label, and the
+Results described those misclassifications as the "Skill-Application Paradox signature". That
+reading was not justified. The tiers also depend on library version: re-running the deposited code
+gives 5/8/9 instead of the published 6/10/6.
+
+What we changed. Every model table now includes the always-attrition and random baselines. ROC-AUC
+(chance = 0.5) is the primary metric, alongside F1 and balanced accuracy with per-fold SD (5x
+repeated 5-fold CV) and bootstrap test intervals. A label-permutation test (200 permutations) gives
+p = 0.005 for both Random Forest and logistic regression. The behavioral signal is therefore real
+but modest, and the manuscript says plainly that no classifier exceeds the trivial F1. On comparable
+items the survey classifier reaches a repeated-CV ROC-AUC of at most 0.630 (permutation p = 0.065)
+and is not claimed. The Early Warning System is withdrawn, and its section now explains why.
+
+====================================================================================================
+ITEM 2  REFERENCE AND METADATA AUDIT
+====================================================================================================
+
+INQUIRY (verbatim): "Discrepancies and inaccuracies in reference metadata between the preprint,
+Crossref deposit, and published PDF, including multiple references that appear unverified,
+misattributed, or non-existent (e.g., [3], [19], [20], [22])."
+
+What we found. The Desk is right that the three sources disagree, and we traced how. The arXiv
+preprint (v1, 27 July 2026) and the Crossref deposit for DOI 10.53799/vka5w161 (23 references) both
+carry the reference list of our original submission. In that list, [3] (Combefis & de le Vingne,
+WiPSCE 2016), [19] (Miao & Ahmad, Comput. Educ. 2023) and [20] (Al-Razgan et al., Comput. Hum.
+Behav. 2021) cannot be found in any bibliographic database, and [22] had the wrong title and
+journal. These entries were not verified before our first submission. That was our error, and we
+regret it. During the first revision the list was rebuilt, and the published PDF (31 references)
+replaces them with verifiable works:
+  - [3] S. Combefis, G. Beresnevicius, V. Dagiene, Olympiads in Informatics 10:39-60, 2016,
+    doi:10.15388/ioi.2016.03
+  - [19] R. Raman, H. Vachharajani, K. Achuthan, Educ. Inf. Technol. 23(5):1919-1932, 2018,
+    doi:10.1007/s10639-018-9697-3
+  - [20] E. B. Costa et al., Comput. Hum. Behav. 73:247-256, 2017, doi:10.1016/j.chb.2017.01.047
+  - [22] P. Prinsloo, S. Slade, J. Learning Analytics 3(1):159-182, 2016,
+    doi:10.18608/jla.2016.31.10
+The deposit was generated from the reference metadata entered at submission and was not updated
+after the revision, so the deposited list and the printed list differ. We respectfully ask that the
+deposit be updated with the corrected list enclosed.
+
+What we changed. We verified all 31 published references against Crossref or publisher records. The
+remaining problems, now corrected, are:
+  - [5] Malmi et al. carried the wrong year and pages (it is ITiCSE 2002, pp. 55-59) and does not
+    support the sentence citing it. It is replaced by Kinnunen & Malmi, ICER 2006, pp. 97-108,
+    doi:10.1145/1151588.1151604.
+  - [9] Kotsiantis (a general review of classifiers) was cited for dropout modelling from online-
+    course data. It is replaced by Kloft et al., EMNLP MOOC Workshop 2014, pp. 60-65,
+    doi:10.3115/v1/W14-4111.
+  - [10] Ihantola et al.: the title is corrected to "... Literature Review and Case Studies"
+    (doi:10.1145/2858796.2858798). [6] Guzdial: full title restored.
+  - The sentence citing [22] now matches its content (student agency and data ethics in learning
+    analytics).
+  - Four standard methods references are added for the corrected statistics: [32] Holm 1979, [33]
+    Mann & Whitney 1947 (doi:10.1214/aoms/1177730491), [34] Wilson 1927
+    (doi:10.1080/01621459.1927.10502953) and [35] Ojala & Garriga, JMLR 11:1833-1863, 2010.
+  - Author metadata: the deposit duplicates two surnames ("Ruhan Ruhan", "Rafi Rafi"), and the
+    fourth author appears as "Shehrin" in the submission system but "Sherin" in the article and
+    preprint. We ask that the deposit be corrected to match the published article.
+Preprint: once the Desk has reviewed the corrected version, we will post arXiv v2 with a note that
+it supersedes v1 following this inquiry.
+
+====================================================================================================
+ITEM 3  ETHICS AND DATA DISCLOSURES
+====================================================================================================
+
+INQUIRY (verbatim): "Discrepancies between figure captions/titles and the text findings, as well as
+missing details on the sampling frame, seeds, T_obs, and ethics approval dates/institutional scope."
+
+3.1  Figures, captions and text
+-------------------------------
+Every figure is now drawn from the results file by one script (r3_figures.py), so captions and text
+cannot diverge. The discrepancies corrected, by published figure number:
+  - Fig. 2: "eight psychographic inputs ... softmax output over the two classes". After one-hot
+    encoding the input is wider, and scikit-learn's binary multilayer perceptron has a single
+    logistic output. Removed; the architecture is stated in the text.
+  - Fig. 3 and the Models subsection: "weights tuned by cross-validation". The ensemble uses equal
+    weights, the library default, and no weights were tuned. Removed; Eq. (3) now states equal
+    weights.
+  - Fig. 4: matched cohort implied, unmatched values shown; the image title also reads "Active users
+    participate 83.7% more frequently", whereas 7.27 vs 1.19 is about six times, not 83.7 percent
+    more. Replaced by Fig. 2 and Table III.
+  - Figs. 5-6: unmatched means of heavy-tailed variables. Replaced by matched medians (Table III,
+    Fig. 2).
+  - Fig. 7: three ATR definitions (see 1.2). Replaced by Fig. 3.
+  - Fig. 8: the title says "Stopped users upsolved more", while the bars show the opposite share in
+    the top band; "Never" in fact meant fewer than 0.5 upsolves per contest. Removed; the result is
+    reported in the text.
+  - Fig. 10: survey importance led by the non-comparable upsolving item (1.4). Removed.
+  - Figs. 12-13: F1 shown without the trivial baseline. Replaced by Fig. 6 (ROC-AUC and F1 with
+    baselines) and Tables IV-V.
+  - Fig. 14: unaudited importances, correctly captioned as such, but the accompanying text said
+    attrition accounts "were created more recently than active ones". In the data they are older
+    (median 33.5 vs 19.0 months), because account age includes the idle period. Replaced by Fig. 7
+    (audited) with the statement corrected.
+  - Fig. 15: Early Warning System (see 1.6). Removed.
+  - Fig. 1: the framework showed converging layers with the mixed numbers described in 1.1. Replaced
+    by a study-design figure showing two independent analyses.
+  - Text: "every classifier ran with balanced class weights" (not possible for KNN and MLP); "six
+    proxies binned onto 1 to 5 ... so that users ... remain comparable" (the models used raw values,
+    and the binned set included rating volatility, not post-drop recovery); Appendix B listed four
+    DSA-grade options where the form had five. All corrected.
+
+3.2  Sampling frame, seeds and T_obs
+------------------------------------
+  - Sampling frame (Dataset 1 subsection): the list of rated users from the Codeforces API
+    (user.ratedList, activeOnly = false); a pool of 26,000 handles stratified by current rating
+    band, proportional with a minimum of 50 per band. Collection gate: at least 5 rated contests,
+    current rating 1-2399, at least one accepted submission. 6,927 accounts in the released file;
+    every later stage is in Table I. Counts removed before the file are produced from the raw
+    records by r0.
+  - Seeds: 42 for handle sampling, undersampling, data splits, cross-validation folds, models,
+    bootstraps and permutations. Library versions are pinned.
+  - T_obs: the published article describes T_obs as "the date on which the API crawl completed". In
+    the code it is the moment the feature file was built, and that moment was not recorded It falls
+    in June 2026, before 24 June 2026, when the first figures were produced from the file. A later
+    re-execution of the notebook on the same cached records shows 5,600/1,327 instead of the file's
+    5,603/1,324, consistent with three accounts crossing the three-month threshold between runs. The
+    rebuild script r0 therefore takes T_obs as an explicit argument, and it also provides a fixed-
+    window rebuild in which all features use activity before T_obs minus three months only.
+
+3.3  Ethics approval dates and institutional scope
+--------------------------------------------------
+  - The published article says the study was approved "on 17 March 2026". That is the date of the
+    approval letter (REC/MU/2026/007, enclosed). The letter itself states that approval was given by
+    resolution of the Research Ethics Committee's meeting of 24 February 2026.
+  - Survey responses were collected from 6 March to 2 April 2026, after the 24 February resolution.
+    Stating only the letter date made it appear that 84 of the 96 responses preceded approval. The
+    corrected manuscript states both dates and the collection period (Dataset 2 subsection).
+  - Scope: approval was granted by the authors' institution for the project as a whole. The survey
+    was an anonymous, voluntary online form for computer science students. It recorded no name,
+    student ID, e-mail or institution, and no institutional records were accessed. Because
+    institution was not recorded, the corrected manuscript no longer calls the survey "multi-
+    institutional", no longer gives a number of universities, and reports no per-institution
+    figures. The consent statement on the form's landing page is described in the Dataset 2
+    subsection as in the published article, and a screenshot of the form can be provided on request.
+  - Codeforces: public API endpoints only, at a rate within the platform's call limits; handles are
+    pseudonymised with a salted hash in every released file, and accounts are never linked to survey
+    respondents.
+
+====================================================================================================
+RESPECTFUL CLOSING
+====================================================================================================
+We regret the errors that led to this inquiry and the work they have caused the Editorial Desk. We
+have tried to answer each concern fully, to separate what was a matter of reading from what was our
+mistake, and to make every step independently checkable. The corrected article reports a smaller
+result than the published one: a modest but real behavioral signal of attrition in a rating-matched
+cohort, together with an exploratory survey. We believe it is now an accurate and reproducible
+account of what the data show.
+
+We understand from COPE's Retraction Guidelines (version 3, 2025) that unreliable content can stem
+from honest error as well as misconduct, and that the purpose of retraction is to correct the
+literature rather than to punish authors. In that spirit, we would be grateful if the Desk would
+consider publishing the corrected version with a correction notice, which we would be glad to draft
+with you.
+
+We fully respect that the decision rests with the Editorial Desk. Should the Desk conclude, after
+its review, that the article cannot continue in the journal even in its corrected form, we would
+respectfully welcome the opportunity to discuss with the Desk how the authors themselves might bring
+the matter to the most fitting close, in whatever manner the Desk considers consistent with the
+journal's standards and with COPE guidance. In every case, we remain at the Desk's disposal for any
+further data, code or clarification.
+
+Yours sincerely,
+
+Azuad Islam Ruhan (corresponding author), on behalf of all authors:
+Golam Mostofa Naeem (supervisor), Rakibul Islam Rafi, Sherin Afrin Mim, Nazira Bani Opi, Dewan Fahad
+Chowdhury, Md. Rejaul Korim Sadi
+Department of Computer Science and Engineering, Metropolitan University, Sylhet, Bangladesh

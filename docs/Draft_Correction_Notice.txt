@@ -1,0 +1,32 @@
+DRAFT CORRECTION NOTICE (for the Editorial Desk's consideration; wording entirely at the Desk's discretion)
+=======================================================================================================
+
+Correction to: A. I. Ruhan, G. M. Naeem, R. I. Rafi, S. A. Mim, N. B. Opi, D. F. Chowdhury, and M. R. K. Sadi,
+"Predicting Student Attrition in Competitive Programming: A Large-Scale Study Integrating Survey Insights and
+Global Behavioral Logs," AIUB Journal of Science and Engineering, vol. 25, no. 2, pp. 231-243, 2026,
+doi: 10.53799/vka5w161.
+
+Following an editorial inquiry, the authors re-examined the article against its raw data and code, which they
+have deposited. The following corrections have been made.
+
+1. Behavioral comparisons. The descriptive results on Codeforces behavior (abstract, Section IV, Figs. 4-8,
+   conclusion) had been computed on the unmatched cohort of the first submission. They are now computed on the
+   rating-matched cohort, after excluding accounts with incomplete retrieved submission histories. The reported
+   83.7% fall in contest participation, the 15.6% rise in struggle time and the editorial-dependency
+   interpretation are withdrawn. Matched users who withdrew show lower contest and practice frequency and
+   slightly lower topic-level accuracy (small effects).
+2. Feature definitions and leakage audit. The definitions of the Activity Trend Ratio, the monthly rates and
+   post-drop recovery now match their implementation. A single rule removes all window-dependent features. On
+   that basis, behavioral classifiers reach a cross-validated ROC-AUC of 0.622, above chance but modest, and
+   results are reported against trivial baselines.
+3. Survey analysis. Two survey item pairings (Q11/Q33, Q27/Q36) compared non-equivalent items and are no longer
+   used for between-group tests. No survey difference survives correction for multiple comparisons. The survey
+   classifier, the Early Warning System and the Skill-Application Paradox as a finding are withdrawn; the
+   latter is retained as a hypothesis.
+4. Ethics statement. Approval REC/MU/2026/007 was given by resolution of the Metropolitan University Research
+   Ethics Committee on 24 February 2026; the approval letter is dated 17 March 2026. Data were collected
+   between 6 March and 2 April 2026.
+5. References and metadata. References [5], [9] and [10] are corrected, and four methods references are added.
+   The Crossref deposit is updated to the reference list of the published article.
+
+The authors apologise for these errors.

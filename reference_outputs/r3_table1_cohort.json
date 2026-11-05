@@ -1,0 +1,52 @@
+[
+ {
+  "stage": "Released feature file (>=5 rated contests, current rating 1-2399)",
+  "accounts": 6927,
+  "note": ""
+ },
+ {
+  "stage": "After peak rating < 2400",
+  "accounts": 6892,
+  "note": "removed 35"
+ },
+ {
+  "stage": "After data-quality check (complete submission history)",
+  "accounts": 6012,
+  "note": "removed 766 (fewer submissions than rated contests) + 114 (>15 contests/month); all Active: True"
+ },
+ {
+  "stage": "Active at T_obs",
+  "accounts": 4693,
+  "note": ""
+ },
+ {
+  "stage": "Inactive >= 3 months at T_obs",
+  "accounts": 1319,
+  "note": ""
+ },
+ {
+  "stage": "True Attrition (peak < 1500)",
+  "accounts": 908,
+  "note": ""
+ },
+ {
+  "stage": "Intentional Exit (excluded)",
+  "accounts": 411,
+  "note": ""
+ },
+ {
+  "stage": "Matching pool: active, peak < 1500",
+  "accounts": 3421,
+  "note": ""
+ },
+ {
+  "stage": "Sampled from pool (seed 42)",
+  "accounts": 908,
+  "note": ""
+ },
+ {
+  "stage": "Rating-matched modelling set",
+  "accounts": 1816,
+  "note": ""
+ }
+]

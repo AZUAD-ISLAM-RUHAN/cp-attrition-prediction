@@ -1,0 +1,6 @@
+{
+  "name": "ajse-1999-manuscript-build",
+  "private": true,
+  "description": "Builds the corrected manuscript (clean and tracked) from manuscript_build/output/content_pub.json",
+  "dependencies": { "docx": "9.8.1" }
+}

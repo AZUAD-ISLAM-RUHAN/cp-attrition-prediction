@@ -1,0 +1,45 @@
+cff-version: 1.2.0
+message: "If you use this data or code, please cite the article below."
+title: "Predicting Student Attrition in Competitive Programming: data and code"
+repository-code: "https://github.com/AZUAD-ISLAM-RUHAN/cp-attrition-prediction"
+license: MIT
+authors:
+  - family-names: Ruhan
+    given-names: Azuad Islam
+  - family-names: Naeem
+    given-names: Golam Mostofa
+  - family-names: Rafi
+    given-names: Rakibul Islam
+  - family-names: Mim
+    given-names: Sherin Afrin
+  - family-names: Opi
+    given-names: Nazira Bani
+  - family-names: Chowdhury
+    given-names: Dewan Fahad
+  - family-names: Sadi
+    given-names: Md. Rejaul Korim
+preferred-citation:
+  type: article
+  title: "Predicting Student Attrition in Competitive Programming: A Large-Scale Study Integrating Survey Insights and Global Behavioral Logs"
+  journal: "AIUB Journal of Science and Engineering (AJSE)"
+  volume: 25
+  issue: 2
+  start: 231
+  end: 243
+  year: 2026
+  doi: "10.53799/vka5w161"
+  authors:
+    - family-names: Ruhan
+      given-names: Azuad Islam
+    - family-names: Naeem
+      given-names: Golam Mostofa
+    - family-names: Rafi
+      given-names: Rakibul Islam
+    - family-names: Mim
+      given-names: Sherin Afrin
+    - family-names: Opi
+      given-names: Nazira Bani
+    - family-names: Chowdhury
+      given-names: Dewan Fahad
+    - family-names: Sadi
+      given-names: Md. Rejaul Korim

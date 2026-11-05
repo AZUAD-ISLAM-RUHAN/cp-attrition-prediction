@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+node_modules/
+manuscript_build/output/
+data/PRIVATE/
+
+# never publish: personal or quasi-identifying data (shared with the editor privately only)
+docs/REC_Approval_Letter*.pdf
+*.xlsx
+*.jsonl
+handle_pool.txt
+*salt*
+_generated_moved_aside/
