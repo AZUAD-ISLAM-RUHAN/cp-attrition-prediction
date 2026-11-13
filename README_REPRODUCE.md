@@ -34,6 +34,7 @@ On Windows, run it in Git Bash or WSL, or run the commands in the steps below on
 | 4 | `node manuscript_build/render_pub.js clean\|tracked <out.docx>` | content JSON, figures, author photos | corrected manuscript, clean and tracked |
 | 5 | `python manuscript_build/response_pub.py` | results | response letter (.txt) |
 | 7 | `python manuscript_build/independent_check_pub.py` | raw files and documents | recomputes key numbers without r3 code and checks they appear in the documents |
+| 7c | `r4_check_reviewer_claims.py`, `r4_revision_analyses.py` (full run only), `r4_figures.py`; from release v3.0 also `bash manuscript_build/v3/build_v3.sh` | data, results | reviewer-claim checks, v3 results and figures; from v3.0 the revised manuscript v3 (clean; tracked against 6 Nov), claim table and 53 tests (`verify_v3.py`) |
 | 7b | `python manuscript_build/verify_manuscript_consistency.py` | documents, results, figures | 64 tests: figures, tables, equations, references, headline numbers, AJSE template conformance (T7) |
 | 8 | `python manuscript_build/verify_against_reference.py` | `reference_outputs/` | checks that the new run matches the submitted outputs (numbers to 3 decimals; document text exact) |
 

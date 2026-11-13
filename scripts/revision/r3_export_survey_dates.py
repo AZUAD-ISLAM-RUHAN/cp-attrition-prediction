@@ -1,7 +1,7 @@
 """
 r3_export_survey_dates.py - writes data/survey_response_dates.csv: the calendar DATE (no time of day)
 of each of the 96 survey submissions, in the same row order as data/survey_responses.csv, so that the
-collection window (6 Mar - 2 Apr 2026, after the REC resolution of 24 Feb 2026) can be checked publicly.
+collection window (6 Mar - 2 Apr 2026, after the verbal REC approval of 24 Feb 2026; letter 17 Mar 2026) can be checked publicly.
 Needs the private original sheet in data/PRIVATE/. Times of day are dropped as quasi-identifiers.
     python scripts/revision/r3_export_survey_dates.py
 """

@@ -6,7 +6,9 @@ Data and code for:
 
 Public repository: https://github.com/AZUAD-ISLAM-RUHAN/cp-attrition-prediction
 
-> **Status (6 November 2026).** The article is temporarily retracted while the AJSE Editorial Desk reviews it (inquiry of 3 November 2026). This repository holds everything needed to verify the corrected version submitted in response: the data, every script, and one command that regenerates every number, table and figure. The corrected manuscript itself is with the journal and is not posted here.
+> **Status (13 November 2026).** The article is temporarily retracted while the AJSE Editorial Desk reviews it: an editorial inquiry of 3 November 2026 (answered on 6 November; that version is tagged `v2.0-reviewed`, DOI [10.5281/zenodo.24054465](https://doi.org/10.5281/zenodo.24054465)) and a reviewer report of 8 November 2026. This commit adds the analyses that answer the report (scripts `r4_*`, `results/r4_*`, `figures/v3/`). The survey is removed from the revised paper (the reviewer's preferred option), which reports a rating-restricted comparison of Codeforces activity. The revised manuscript and the response are with the journal and are not posted here; the manuscript generators will be added with release v3.0, when the paper is final, so that the release matches the paper exactly.
+>
+> **Archive of all versions:** [10.5281/zenodo.24054464](https://doi.org/10.5281/zenodo.24054464). The history of 19 September 2026 is in branch `history-2026-09`; see [`docs/REPOSITORY_HISTORY.md`](docs/REPOSITORY_HISTORY.md).
 
 ---
 
@@ -22,25 +24,26 @@ bash reproduce_all.sh               # about 45 min on 2 CPU cores
 
 The last line of a successful run is `RESULT: ALL OUTPUTS REPRODUCED`. The run:
 
-1. computes every statistic, test and model from the raw data (`scripts/revision/r3_inquiry_reanalysis.py`);
+1. computes every statistic, test and model from the raw data (`scripts/revision/r3_inquiry_reanalysis.py` for the 6 November version; `r4_check_reviewer_claims.py` and `r4_revision_analyses.py` for v3);
 2. builds Table I and draws every figure;
-3. rebuilds the corrected manuscript, clean and with tracked changes against the published article;
+3. rebuilds the 6 November manuscript (clean, and tracked against the published article); from release v3.0 also the revised v3 (clean, and tracked against 6 November);
 4. recomputes the key numbers independently from the raw files and checks that each appears in the documents;
-5. runs 64 consistency tests: figures, tables, equations, references, headline numbers and conformance with the AJSE camera-ready template;
+5. runs the consistency tests (64 for the 6 November version; 53 more for v3 from release v3.0): figures, tables, equations, references, headline numbers, the reviewer's requirements and the AJSE camera-ready template;
 6. compares everything with the outputs that were submitted to the journal (`reference_outputs/`).
 
 `bash reproduce_all.sh --docs` reuses the computed results and takes about a minute. `--fast` is a quick smoke test with fewer permutations. Step-by-step instructions are in [`README_REPRODUCE.md`](README_REPRODUCE.md).
 
-## What the corrected analysis finds
+## What the revised analysis (v3) finds
 
 | | Result |
 |---|---|
-| Codeforces cohort | 6,927 accounts released; 880 removed for incomplete submission histories; 1,816 users rating-matched (908 active, 908 true attrition, all peak rating < 1500) |
-| Group differences | Users who withdrew entered fewer rated contests (median 0.89 vs. 1.15 per month) and solved fewer problems per month (5.35 vs. 8.80). All effects are small (rank-biserial \|r\| ≤ 0.28). |
-| Prediction | Best repeated 5-fold CV ROC-AUC 0.622 (soft-voting ensemble); Random Forest 0.620, label-permutation p = 0.005. No model beats the F1 of the always-"attrition" baseline (0.667). |
-| Survey | 96 responses, analysis set n = 64. The most frequent reason for stopping is stalled rating progress (12 of 51). The difference in self-rated mathematics ability (3.93 vs. 3.41) does not survive Holm correction. |
+| Cohort | 6,927 accounts retrieved; 888 removed for incomplete submission histories (all active); both groups restricted to peak rating < 1500: **3,421 active and 908 labeled attrition** (no submission for at least 90 days). All eligible active accounts are used, so no random draw is involved. |
+| Group differences | Small. Attrition accounts accept smaller shares of their attempts (math-tag r = -0.16, overall -0.13) and solve fewer problems per rated contest (median 5.95 vs. 7.80, r = -0.13). No measure used in the models exceeds \|r\| = 0.16. |
+| Separability | Cross-validated ROC-AUC 0.596 [0.574, 0.617] (logistic regression) and 0.611 [0.590, 0.631] (random forest); Brier scores barely below the base rate. |
+| Robustness | 50 balanced samples: RF mean 0.598; stricter cleaning rules about 0.60; inactivity of 3/6/12 months crossed with rating limits 1400/1500/1600: 0.59–0.66; matched on account age and contests: RF 0.579. |
+| Not yet done | Reviewer item B1 (measures from the period before inactivity only) needs the raw API records, which are not public. |
 
-Every value above is read from `results/r3_results.json`, and no number in the paper is typed by hand.
+The measures summarize each account's whole recorded history, so these results describe group differences; they do not show that inactivity can be predicted for individuals. Every value above is read from `results/r4_results.json`.
 
 ## Repository layout
 
@@ -63,17 +66,24 @@ scripts/
     r3_figures.py                         draws every figure from r3's outputs
     r3_table1_cohort.py                   stage-by-stage cohort counts (Table I)
     r3_export_survey_dates.py             date-only public file from the private timestamped sheet
-results/              r3_results.json (every number, machine-readable), r3_report.md, r3_table1_cohort.json
+    r4_check_reviewer_claims.py           tests every numerical claim of the reviewer report (8 Nov 2026)
+    r4_revision_analyses.py               v3 analyses: cohort, effect sizes, models, robustness (items B2-B7)
+    r4_figures.py                         the four v3 figures (every figure shows uncertainty)
+results/              r3_*: 6 November version; r4_*: v3 (results, reviewer-claim checks, out-of-fold predictions, published vs. re-run test set)
 figures/
   original/           the 17 original figure files (first submission and published article), unchanged
-  revised/            the figures of the corrected manuscript
-manuscript_build/     generators for the corrected manuscript and the response letter, and their inputs
+  revised/            the figures of the 6 November version
+  v3/                 the figures of the revised v3
+manuscript_build/     generators for the manuscripts and response letters, and their inputs
+  v3/                 (added with release v3.0) revised paper, claim table, tests and build script
 reference_outputs/    the outputs behind the documents submitted to the journal, for comparison
 docs/
   ETHICS_AND_DATA.md            ethics approval, consent, anonymisation, observation date
   DATA_DICTIONARY.md            every column, defined as implemented
   survey_instrument.md          the full questionnaire with its branching
-  reference_verification.md     check of every reference against Crossref and publishers
+  reference_verification.md     check of every reference against Crossref and publishers (6 November version)
+  reference_verification_v3.md  automatic Crossref/DataCite check of every v3 reference
+  REPOSITORY_HISTORY.md         how to verify the September 2026 history (GitHub-signed commits)
   AJSE_template_conformance.md  layout checked against the AJSE camera-ready template
   Draft_Correction_Notice.txt   proposed correction notice
 reproduce_all.sh      one-command rebuild and verification
@@ -82,7 +92,7 @@ reproduce_all.sh      one-command rebuild and verification
 ## Data and privacy
 
 - **Codeforces.** The data come from the public Codeforces API (`user.ratedList`, `user.info`, `user.status`, `user.rating`), collected in June 2026. Handles are replaced by a salted SHA-256 prefix; the salt and the raw API records, which contain handles, are not published, but are available to the editor on request. `scripts/revision/r0_rebuild_from_raw_jsonl.py` rebuilds every stage count from those records.
-- **Survey.** An anonymous online questionnaire for students at universities in Bangladesh, collected 6 March – 2 April 2026 under approval of the Research Ethics Committee of Metropolitan University, Sylhet (REC/MU/2026/007; resolution of 24 February 2026). It recorded no names, student IDs, e-mail addresses or institutions. Exact submission times are removed as quasi-identifiers, and only the date of each response is published. The approval letter is supplied to the journal and is not posted here, because it contains a personal identifier.
+- **Survey.** An anonymous online questionnaire for students at universities in Bangladesh, collected 6 March – 2 April 2026 under the approval of the Research Ethics Committee of Metropolitan University, Sylhet (REC/MU/2026/007): the application was considered on 24 February 2026 and approved verbally, and the letter was issued on 17 March 2026; 84 of the 96 responses were submitted before the letter. It recorded no names, student IDs, e-mail addresses or institutions. Exact submission times are removed as quasi-identifiers, and only the date of each response is published. The approval letter is supplied to the journal and is not posted here, because it contains a personal identifier.
 - Details: [`docs/ETHICS_AND_DATA.md`](docs/ETHICS_AND_DATA.md).
 
 ## What changed in response to the editorial inquiry
@@ -94,7 +104,7 @@ reproduce_all.sh      one-command rebuild and verification
 5. **Survey items.** Only items worded comparably across the questionnaire branches enter between-group tests.
 6. **Withdrawn.** The survey classifier and the Early Warning System are withdrawn, and the Skill-Application Paradox is stated as a hypothesis only.
 7. **References.** All references are verified. The non-existent entries flagged by the Desk belong to the original submission list, still carried by the Crossref deposit and the arXiv preprint. Published entries [5], [9] and [10] are corrected.
-8. **Ethics dates.** The REC resolution (24 Feb 2026) predates data collection (from 6 Mar 2026). The approval letter was issued on 17 Mar 2026.
+8. **Ethics dates.** The application was considered and approved verbally on 24 Feb 2026, before data collection began (6 Mar 2026); the approval letter was issued on 17 Mar 2026.
 
 The first-submission and first-round scripts are kept unchanged, so every published number can be traced to the code that produced it.
 

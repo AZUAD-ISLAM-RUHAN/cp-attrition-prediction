@@ -3,20 +3,20 @@
 ## Approval
 - **Body:** Research Ethics Committee (REC), Metropolitan University, Bateshwar, Sylhet-3104, Bangladesh. Convener: Professor Dr. Mohammad Jamal Uddin.
 - **Reference:** REC/MU/2026/007.
-- **Approved project:** undergraduate thesis research project "Predicting Student Attrition in Competitive Programming: A Study Integrating Survey Insights and Global Behavioral Logs". The applicant was Azuad Islam Ruhan (ID 231-115-276) "and others", Department of CSE.
-- **Decision:** approved by the REC resolution of its meeting on **24 February 2026**. The formal approval letter was issued on **17 March 2026**. The approval is valid for one year.
+- **Approved project:** undergraduate thesis research project "Predicting Student Attrition in Competitive Programming: A Study Integrating Survey Insights and Global Behavioral Logs". The applicant was Azuad Islam Ruhan "and others", Department of CSE.
+- **Decision:** the application was considered at the REC meeting on **24 February 2026**, where approval was given verbally. The formal approval letter was issued on **17 March 2026** and is valid for one year. The written record of the 24 February decision (minutes or a signed confirmation from the Committee) is supplied to the journal and is not posted here.
 - **Principles named in the approval:** informed consent; voluntary participation; confidentiality and privacy protection; data security and responsible data management; respect for human dignity and rights; academic integrity.
 
 ## Timeline (from the response-sheet timestamps)
 | Event | Date |
 |---|---|
-| REC meeting resolution approving the study | 24 Feb 2026 |
+| Application considered at the REC meeting; verbal approval | 24 Feb 2026 |
 | First survey response | 6 Mar 2026 |
 | Responses received 6–12 Mar 2026 | 84 of 96 |
 | REC approval letter issued | 17 Mar 2026 |
 | Last survey response | 2 Apr 2026 |
 
-Data collection started after the REC resolution of 24 February 2026, which is the approval decision. The letter of 17 March 2026 formally communicates that decision. The published article and an earlier version of this README said "approved … on 17 March 2026", giving only the letter date. That wording could be read as data collection having started before approval. It has been corrected here and in the manuscript.
+Data collection started on 6 March 2026, after the verbal approval of 24 February 2026 but before the written letter of 17 March 2026: 84 of the 96 responses were submitted before the letter. Earlier versions of this file and of the authors' correspondence called the 24 February decision a "resolution", which overstated the written record available to the authors. The survey is not part of the revised paper (v3).
 
 **Published-article wording corrected:** "on 17 March 2026" (letter date only); "multi-institutional" (institution was not recorded); "account handles are stored solely to deduplicate records" (handles are pseudonymised in all released files).
 

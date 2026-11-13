@@ -1,0 +1,156 @@
+{
+ "B2": {
+  "reviewer_claim": "AUC over other random samples of active users ranges about 0.605-0.625; seed 42 gave the highest value",
+  "our_check": "Random Forest, 5-fold CV, 50 samples (seeds 0-49): mean 0.598, SD 0.013, range 0.552-0.629; seed 42 = 0.623 (rank 2 of 50). All 3,421 active + 908 attrition with class weights: AUC 0.615.",
+  "verdict": "CONFIRMED in substance",
+  "per_seed": {
+   "0": 0.6039,
+   "1": 0.6078,
+   "2": 0.5988,
+   "3": 0.5963,
+   "4": 0.5996,
+   "5": 0.606,
+   "6": 0.5876,
+   "7": 0.5962,
+   "8": 0.5524,
+   "9": 0.6007,
+   "10": 0.6022,
+   "11": 0.6005,
+   "12": 0.6029,
+   "13": 0.5882,
+   "14": 0.6026,
+   "15": 0.5823,
+   "16": 0.6041,
+   "17": 0.5977,
+   "18": 0.5954,
+   "19": 0.6093,
+   "20": 0.5785,
+   "21": 0.6051,
+   "22": 0.5907,
+   "23": 0.612,
+   "24": 0.5927,
+   "25": 0.5966,
+   "26": 0.5792,
+   "27": 0.579,
+   "28": 0.597,
+   "29": 0.5934,
+   "30": 0.5687,
+   "31": 0.6286,
+   "32": 0.5975,
+   "33": 0.6135,
+   "34": 0.5965,
+   "35": 0.5988,
+   "36": 0.6046,
+   "37": 0.5898,
+   "38": 0.5932,
+   "39": 0.619,
+   "40": 0.6004,
+   "41": 0.5959,
+   "42": 0.6234,
+   "43": 0.5972,
+   "44": 0.5871,
+   "45": 0.6141,
+   "46": 0.5985,
+   "47": 0.6137,
+   "48": 0.5972,
+   "49": 0.5985
+  }
+ },
+ "B3a": {
+  "reviewer_claim": "888 of 6,927 accounts (12.8%) had incomplete histories, all active",
+  "our_check": "888 of 6927 (12.8%); active among them: 888",
+  "verdict": "CONFIRMED"
+ },
+ "B3b": {
+  "reviewer_claim": "Among kept users, 117 active but only 4 quitters have fewer than 2 submissions per contest",
+  "our_check": "matched cohort (seed 42): active 32, attrition 4; median submissions per contest: active 18.38, attrition 14.15",
+  "verdict": "CLOSE / DIFFERS (see numbers)"
+ },
+ "B3c": {
+  "reviewer_claim": "With a stricter rule the AUC is only about 0.58-0.61",
+  "our_check": ">= 2 submissions per contest: attrition n=904, AUC mean 0.600 (range 0.588-0.614, 10 samples); >= 3 submissions per contest: attrition n=892, AUC mean 0.582 (range 0.561-0.613, 10 samples)",
+  "verdict": "CONFIRMED in substance"
+ },
+ "B5": {
+  "reviewer_claim": "Active users have newer accounts (median 19 vs 33.5 months); adjusted AUC about 0.628",
+  "our_check": "median account age: active 19.0, attrition 33.5 months; AUC with account age and total contests added as covariates: 0.773 (without: 0.623)",
+  "verdict": "CONFIRMED"
+ },
+ "E2": {
+  "reviewer_claim": "The published unmatched analysis (Spec A) included 4 users rated 2400 or more",
+  "our_check": "accounts with peak rating >= 2400 in the released file: 35 (Table I removes them before modelling)",
+  "verdict": "CONFIRMED"
+ },
+ "E4": {
+  "reviewer_claim": "Seven accounts show exactly 3.0 months of inactivity but are labelled Active",
+  "our_check": "accounts with months_since_last_submission == 3.0: 20; status: {'Stopped': 13, 'Active': 7}; min months among Stopped: 3.0000",
+  "verdict": "DIFFERS"
+ },
+ "E5": {
+  "reviewer_claim": "Struggle time: adjusted p 0.191, unadjusted 0.095",
+  "our_check": "r3: p = 0.095, Holm p = 0.191",
+  "verdict": "CONFIRMED"
+ },
+ "B6": {
+  "reviewer_claim": "Problems per contest importance rests on one test set (drop 0.066 in AUC)",
+  "our_check": "r3 permutation importance on the held-out 20% test set: solved_per_contest drop 0.066 (SD 0.017 over 30 repeats of the SAME test set)",
+  "verdict": "CONFIRMED"
+ },
+ "B1": {
+  "reviewer_claim": "Features use the whole history; redo with a fixed window ending 3 months before the last submission",
+  "our_check": "The released feature file holds only whole-history aggregates (26 columns, no timestamps). B1 needs the raw submission records (users_dynamic.jsonl) or a re-collection from the Codeforces API using the private handle list.",
+  "verdict": "CONFIRMED (cannot be done from the public files)"
+ },
+ "A5": {
+  "reviewer_claim": "Long break: 28/42 = 67% in the analysis set; the published 73% = 37/51 includes the 9 removed",
+  "our_check": "Q36 'Yes': analysis set 28/42 = 66.7%; all stopped 37/51 = 72.5%",
+  "verdict": "CONFIRMED"
+ },
+ "C4": {
+  "reviewer_claim": "23 never started; 9 left for other fields; 9 chose 'Others' and are counted as quitters",
+  "our_check": "never started 23; 'Interest in other tracks' 9; 'Others' among the 42 kept: 9",
+  "verdict": "CONFIRMED"
+ },
+ "nine_other_tracks": {
+  "highest_rating_before_quitting": [
+   890.0,
+   0.0,
+   0.0,
+   921.0,
+   1230.0,
+   870.0,
+   700.0,
+   950.0,
+   0.0
+  ],
+  "n_rating_ge_1500": 0,
+  "n_rating_ge_1400": 0,
+  "current_focus_area": [
+   "(blank)",
+   "(blank)",
+   "(blank)",
+   "(blank)",
+   "(blank)",
+   "(blank)",
+   "(blank)",
+   "(blank)",
+   "(blank)"
+  ],
+  "duration_before_quitting": [
+   "6 months - 1 year",
+   "1-6 months",
+   "1-6 months",
+   "1-6 months",
+   "6 months - 1 year",
+   "6 months - 1 year",
+   "1-6 months",
+   "1-2 years",
+   "1-6 months"
+  ]
+ },
+ "kept_42_highest_rating": {
+  "median": 860.0,
+  "n_ge_1500": 1,
+  "n_zero": 9
+ }
+}

@@ -34,5 +34,23 @@ for docx, ref, extra in pairs:
 lt = OUT / "AJSE_1999_Response_to_Editorial_Inquiry.txt"
 same = lt.exists() and lt.read_text() == (REF / "AJSE_1999_Response_to_Editorial_Inquiry.txt").read_text(); ok &= same
 print(f"{lt.name}: {'IDENTICAL' if same else 'DIFFERS'}")
+# revised manuscript (v3), reviewer report of 8 Nov 2026
+R3 = REF / "v3"
+if R3.exists():
+    for name in ["r4_results.json", "r4_reviewer_claims.json"]:
+        new = ROOT / "results" / name
+        if not new.exists(): print("MISSING", new); ok = False; continue
+        diff = walk(json.load(open(R3 / name)), json.load(open(new)))
+        print(f"v3 {name}: {'IDENTICAL (3 d.p.)' if not diff else f'{len(diff)} differences'}"); ok &= not diff
+        for x in diff[:10]: print("   ", x)
+    O3 = ROOT / "manuscript_build" / "v3" / "output"
+    for docx, ref in [(O3 / "AJSE_1999_v3_Revised_CLEAN.docx", R3 / "Revised_CLEAN.txt")]:
+        if not ref.exists(): continue             # the revised manuscript is added with release v3.0
+        same = docx.exists() and txt(docx).strip() == ref.read_text().strip(); ok &= same
+        print(f"v3 {docx.name}: text {'IDENTICAL' if same else 'DIFFERS'}")
+    for f in ["Response_to_Reviewer_v3.md", "claims_table_v3.md"]:
+        if not (R3 / f).exists(): continue          # the response is kept out of the public repository
+        same = (O3 / f).exists() and (O3 / f).read_text() == (R3 / f).read_text(); ok &= same
+        print(f"v3 {f}: {'IDENTICAL' if same else 'DIFFERS'}")
 print("\nRESULT:", "ALL OUTPUTS REPRODUCED" if ok else "SOME OUTPUTS DIFFER (see above)")
 sys.exit(0 if ok else 1)

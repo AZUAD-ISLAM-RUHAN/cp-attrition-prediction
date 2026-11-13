@@ -62,7 +62,7 @@ S5 = SEND / "5_Supplementary_Verification.docx"
 subprocess.run(["pandoc", str(OUT / "supplement.md"), "-o", str(S5)], check=True); pdf(S5)
 # 6 public archive
 Z = SEND / "6_AJSE_1999_Public_Data_and_Code.zip"
-skip = ("data/PRIVATE", "docs/REC_Approval_Letter", "node_modules", "manuscript_build/output", "_generated_moved_aside", "__pycache__", ".ipynb_checkpoints")
+skip = ("data/PRIVATE", "docs/REC_Approval_Letter", "node_modules", "manuscript_build/output", "manuscript_build/v3/output", "manuscript_build/inputs/AJSE_1999_v2_", "_generated_moved_aside", "__pycache__", ".ipynb_checkpoints")
 with zipfile.ZipFile(Z, "w", zipfile.ZIP_DEFLATED) as z:
     for p in sorted(ROOT.rglob("*")):
         rel = p.relative_to(ROOT).as_posix()
