@@ -1,0 +1,122 @@
+{
+ "note": "Published Table III, Spec C test-set columns vs re-execution of r1 on 8 Nov 2026 (pinned environment)",
+ "rows": [
+  {
+   "classifier": "Logistic Regression",
+   "published": {
+    "acc": 0.555,
+    "f1": 0.599,
+    "recall": 0.665
+   },
+   "rerun": {
+    "acc": 0.555,
+    "f1": 0.599,
+    "recall": 0.665
+   }
+  },
+  {
+   "classifier": "Decision Tree",
+   "published": {
+    "acc": 0.558,
+    "f1": 0.561,
+    "recall": 0.566
+   },
+   "rerun": {
+    "acc": 0.558,
+    "f1": 0.561,
+    "recall": 0.566
+   }
+  },
+  {
+   "classifier": "Random Forest",
+   "published": {
+    "acc": 0.613,
+    "f1": 0.65,
+    "recall": 0.72
+   },
+   "rerun": {
+    "acc": 0.643,
+    "f1": 0.681,
+    "recall": 0.764
+   }
+  },
+  {
+   "classifier": "KNN",
+   "published": {
+    "acc": 0.566,
+    "f1": 0.603,
+    "recall": 0.659
+   },
+   "rerun": {
+    "acc": 0.566,
+    "f1": 0.603,
+    "recall": 0.659
+   }
+  },
+  {
+   "classifier": "SVM",
+   "published": {
+    "acc": 0.593,
+    "f1": 0.656,
+    "recall": 0.775
+   },
+   "rerun": {
+    "acc": 0.593,
+    "f1": 0.656,
+    "recall": 0.775
+   }
+  },
+  {
+   "classifier": "XGBoost",
+   "published": {
+    "acc": 0.643,
+    "f1": 0.665,
+    "recall": 0.709
+   },
+   "rerun": {
+    "acc": 0.643,
+    "f1": 0.665,
+    "recall": 0.709
+   }
+  },
+  {
+   "classifier": "LightGBM",
+   "published": {
+    "acc": 0.621,
+    "f1": 0.646,
+    "recall": 0.692
+   },
+   "rerun": {
+    "acc": 0.621,
+    "f1": 0.646,
+    "recall": 0.692
+   }
+  },
+  {
+   "classifier": "MLP",
+   "published": {
+    "acc": 0.574,
+    "f1": 0.619,
+    "recall": 0.692
+   },
+   "rerun": {
+    "acc": 0.574,
+    "f1": 0.619,
+    "recall": 0.692
+   }
+  },
+  {
+   "classifier": "Soft-Voting Ensemble",
+   "published": {
+    "acc": 0.626,
+    "f1": 0.66,
+    "recall": 0.725
+   },
+   "rerun": {
+    "acc": 0.624,
+    "f1": 0.655,
+    "recall": 0.714
+   }
+  }
+ ]
+}

@@ -3,7 +3,7 @@
 const fs = require("fs");
 const { Document, Packer, Paragraph, TextRun, ImageRun, Table, TableRow, TableCell, WidthType, AlignmentType, SectionType,
         BorderStyle, ShadingType, ExternalHyperlink, UnderlineType, LineRuleType, TabStopType, HighlightColor, VerticalAlign, InsertedTextRun, DeletedTextRun } = require("docx");
-const C = JSON.parse(fs.readFileSync(require("path").join(__dirname, "output", "content_pub.json"), "utf8"));
+const C = JSON.parse(fs.readFileSync(process.env.CONTENT || require("path").join(__dirname, "output", "content_pub.json"), "utf8"));   // CONTENT=<json> selects another manuscript (v3)
 const MODE = process.argv[2] || "clean", OUT = process.argv[3];
 const TR = MODE === "tracked";
 // Page geometry and type sizes follow the AJSE template (AJSE_Template_2020-OTH): US Letter, margins 0.65 in (left/right) and
@@ -76,7 +76,7 @@ const flush = (props) => { if (cur.length) { sections.push({ properties: { ...pr
 const m = C.meta;
 cur.push(P(runs(m.title, { size: 48 }), { align: AlignmentType.CENTER, spacing: { after: 200, line: 240 } }));
 cur.push(P(runs(m.authors, { size: 22 }), { align: AlignmentType.CENTER, spacing: { after: 320, line: 240 } }));
-cur.push(new Paragraph({ alignment: AlignmentType.JUSTIFIED, spacing: { after: 120 }, shading: { type: ShadingType.CLEAR, fill: "EEF2F8", color: "auto" },
+if (m.notice) cur.push(new Paragraph({ alignment: AlignmentType.JUSTIFIED, spacing: { after: 120 }, shading: { type: ShadingType.CLEAR, fill: "EEF2F8", color: "auto" },
   border: { top: border, bottom: border, left: border, right: border }, children: runs((TR ? "TRACKED-CHANGES VERSION against the published article (AJSE 25(2):231–243). " : "") + m.notice, { size: 16, italics: true }) }));
 const absRuns = TR ? C.abstract_segs.flatMap(([k, t]) => runs(t, { size: 18, bold: true }, k)) : runs(m.abstract, { size: 18, bold: true });
 cur.push(P([...runs("Abstract—", { size: 18, bold: true, italics: true }), ...absRuns], { indent: { firstLine: 202 }, spacing: { before: 20, after: 120, line: 240 } }));

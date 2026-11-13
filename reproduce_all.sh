@@ -55,6 +55,15 @@ python3 manuscript_build/independent_check_pub.py | tee manuscript_build/output/
 step "7b. Manuscript consistency tests (figures, tables, equations, references, headline numbers)"
 python3 manuscript_build/verify_manuscript_consistency.py | tail -3
 
+step "7c. Revision v3: analyses for the reviewer report of 8 Nov 2026"
+if [ "$MODE" = "" ]; then
+  python3 scripts/revision/r4_check_reviewer_claims.py | tail -3
+  python3 scripts/revision/r4_revision_analyses.py | tail -2
+fi
+python3 scripts/revision/r4_figures.py | tail -1
+if [ -f manuscript_build/v3/build_v3.sh ]; then bash manuscript_build/v3/build_v3.sh | tail -3
+else echo "revised manuscript v3: its generators are added with release v3.0, when the paper is final (it is with the journal until then)"; fi
+
 step "8. Comparison with the submitted reference outputs"
 python3 manuscript_build/verify_against_reference.py || true
 step "9. E-mail package for the Editorial Desk"

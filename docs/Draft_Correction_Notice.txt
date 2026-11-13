@@ -23,9 +23,7 @@ have deposited. The following corrections have been made.
    used for between-group tests. No survey difference survives correction for multiple comparisons. The survey
    classifier, the Early Warning System and the Skill-Application Paradox as a finding are withdrawn; the
    latter is retained as a hypothesis.
-4. Ethics statement. Approval REC/MU/2026/007 was given by resolution of the Metropolitan University Research
-   Ethics Committee on 24 February 2026; the approval letter is dated 17 March 2026. Data were collected
-   between 6 March and 2 April 2026.
+4. Ethics statement. The application to the Metropolitan University Research Ethics Committee was considered on 24 February 2026 and approved verbally; the approval letter REC/MU/2026/007 was issued on 17 March 2026. 84 of the 96 survey responses were collected before the letter. (Superseded: the revised paper of November 2026 no longer includes the survey; see the claim table submitted to the journal.)
 5. References and metadata. References [5], [9] and [10] are corrected, and four methods references are added.
    The Crossref deposit is updated to the reference list of the published article.
 

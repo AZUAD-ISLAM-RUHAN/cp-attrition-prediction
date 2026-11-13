@@ -5,8 +5,9 @@ CF ATTRITION PREDICTION - FINAL SCRIPT (v3)
 
 KEY CHANGES FROM PREVIOUS VERSION:
   1. TRUE ATTRITION LABEL:
-     - Stopped + max_rating < 1400 = True Attrition (frustrated quit)
-     - Stopped + max_rating >= 1400 = Intentional Exit → EXCLUDED
+     - Stopped + max_rating < 1500 = True Attrition (frustrated quit)
+     - Stopped + max_rating >= 1500 = Intentional Exit → EXCLUDED
+       (comment corrected 8 Nov 2026: it said 1400, but the code below has always used 1500; reviewer item E1)
      - Active = Active
      
   2. CLEAN FEATURES (no data leakage):
@@ -632,8 +633,8 @@ with open("cf_results_summary.txt", "w") as f:
     f.write("DATASET:\n")
     f.write(f"  Raw: {len(df_raw)} users\n")
     f.write(f"  Active: {len(active_df)}\n")
-    f.write(f"  True Attrition (max_rating < 1400): {len(true_attrition_df)}\n")
-    f.write(f"  Intentional Exit (max_rating >= 1400): {len(intentional_exit_df)} → EXCLUDED\n")
+    f.write(f"  True Attrition (max_rating < 1500): {len(true_attrition_df)}\n")
+    f.write(f"  Intentional Exit (max_rating >= 1500): {len(intentional_exit_df)} → EXCLUDED\n")
     f.write(f"  Modeling dataset: {len(df)} users\n\n")
     f.write("KEY TRENDS (Active vs True Attrition):\n")
     trends = [
