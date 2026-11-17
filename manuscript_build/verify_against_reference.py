@@ -43,6 +43,11 @@ if R3.exists():
         diff = walk(json.load(open(R3 / name)), json.load(open(new)))
         print(f"v3 {name}: {'IDENTICAL (3 d.p.)' if not diff else f'{len(diff)} differences'}"); ok &= not diff
         for x in diff[:10]: print("   ", x)
+    # r5: computed from private inputs (raw API records, re-retrieved histories); the public run checks the stored results
+    for ref in sorted(R3.glob("r5_*.json")):
+        new = ROOT / "results" / ref.name
+        same = new.exists() and json.load(open(new)) == json.load(open(ref)); ok &= same
+        print(f"v3 {ref.name}: {'IDENTICAL' if same else 'DIFFERS or MISSING'}")
     O3 = ROOT / "manuscript_build" / "v3" / "output"
     for docx, ref in [(O3 / "AJSE_1999_v3_Revised_CLEAN.docx", R3 / "Revised_CLEAN.txt")]:
         if not ref.exists(): continue             # the revised manuscript is added with release v3.0

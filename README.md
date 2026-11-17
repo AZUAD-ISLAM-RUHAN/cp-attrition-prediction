@@ -6,7 +6,7 @@ Data and code for:
 
 Public repository: https://github.com/AZUAD-ISLAM-RUHAN/cp-attrition-prediction
 
-> **Status (13 November 2026).** The article is temporarily retracted while the AJSE Editorial Desk reviews it: an editorial inquiry of 3 November 2026 (answered on 6 November; that version is tagged `v2.0-reviewed`, DOI [10.5281/zenodo.24054465](https://doi.org/10.5281/zenodo.24054465)) and a reviewer report of 8 November 2026. This commit adds the analyses that answer the report (scripts `r4_*`, `results/r4_*`, `figures/v3/`). The survey is removed from the revised paper (the reviewer's preferred option), which reports a rating-restricted comparison of Codeforces activity. The revised manuscript and the response are with the journal and are not posted here; the manuscript generators will be added with release v3.0, when the paper is final, so that the release matches the paper exactly.
+> **Status (18 November 2026) - release v3.0.** The article is temporarily retracted while the AJSE Editorial Desk reviews it: an editorial inquiry of 3 November 2026 (answered on 6 November; that version is tagged `v2.0-reviewed`, DOI [10.5281/zenodo.24054465](https://doi.org/10.5281/zenodo.24054465)) and a reviewer report of 8 November 2026. Release v3.0 is the version that matches the revised paper submitted on 18 November 2026: the survey is removed (the reviewer's preferred option), and the paper reports a rating-restricted comparison of Codeforces activity. It adds the generators of the revised paper and claim table (`manuscript_build/v3/`, run by `reproduce_all.sh`) and the analyses that need the raw API records (`scripts/revision/r5_*`): activity in the 6 or 12 months ending 3 months before each account's last submission (item B1), completeness of the attrition histories (B3), the return check (B4), the exact inactivity values (E4) and the reconstruction of T_obs. The r5 scripts read the raw records, which contain Codeforces handles and are available to the editor on request; their aggregate outputs (`results/r5_*`, no handles) are compared with `reference_outputs/v3/` on every run. The response letter is with the journal and is not posted here.
 >
 > **Archive of all versions:** [10.5281/zenodo.24054464](https://doi.org/10.5281/zenodo.24054464). The history of 19 September 2026 is in branch `history-2026-09`; see [`docs/REPOSITORY_HISTORY.md`](docs/REPOSITORY_HISTORY.md).
 
@@ -26,9 +26,9 @@ The last line of a successful run is `RESULT: ALL OUTPUTS REPRODUCED`. The run:
 
 1. computes every statistic, test and model from the raw data (`scripts/revision/r3_inquiry_reanalysis.py` for the 6 November version; `r4_check_reviewer_claims.py` and `r4_revision_analyses.py` for v3);
 2. builds Table I and draws every figure;
-3. rebuilds the 6 November manuscript (clean, and tracked against the published article); from release v3.0 also the revised v3 (clean, and tracked against 6 November);
+3. rebuilds the 6 November manuscript (clean, and tracked against the published article) and the revised v3 manuscript, its claim table and its arXiv source (the tracked v3 copy needs the private 6 November file);
 4. recomputes the key numbers independently from the raw files and checks that each appears in the documents;
-5. runs the consistency tests (64 for the 6 November version; 53 more for v3 from release v3.0): figures, tables, equations, references, headline numbers, the reviewer's requirements and the AJSE camera-ready template;
+5. runs the consistency tests (64 for the 6 November version; 53 more for v3): figures, tables, equations, references, headline numbers, the reviewer's requirements and the AJSE camera-ready template;
 6. compares everything with the outputs that were submitted to the journal (`reference_outputs/`).
 
 `bash reproduce_all.sh --docs` reuses the computed results and takes about a minute. `--fast` is a quick smoke test with fewer permutations. Step-by-step instructions are in [`README_REPRODUCE.md`](README_REPRODUCE.md).
@@ -69,13 +69,15 @@ scripts/
     r4_check_reviewer_claims.py           tests every numerical claim of the reviewer report (8 Nov 2026)
     r4_revision_analyses.py               v3 analyses: cohort, effect sizes, models, robustness (items B2-B7)
     r4_figures.py                         the four v3 figures (every figure shows uncertainty)
-results/              r3_*: 6 November version; r4_*: v3 (results, reviewer-claim checks, out-of-fold predictions, published vs. re-run test set)
+    r5_*.py                               analyses on the raw API records (private input): B1 window analysis and subset check,
+                                          B3 completeness, B4 return check and E4 exact values, A6 feature reproduction, T_obs
+results/              r3_*: 6 November version; r4_*: v3 (results, reviewer-claim checks, out-of-fold predictions, published vs. re-run test set); r5_*: analyses on the raw records (aggregates only)
 figures/
   original/           the 17 original figure files (first submission and published article), unchanged
   revised/            the figures of the 6 November version
   v3/                 the figures of the revised v3
 manuscript_build/     generators for the manuscripts and response letters, and their inputs
-  v3/                 (added with release v3.0) revised paper, claim table, tests and build script
+  v3/                 revised paper (v3), claim table, arXiv source, tests and build script
 reference_outputs/    the outputs behind the documents submitted to the journal, for comparison
 docs/
   ETHICS_AND_DATA.md            ethics approval, consent, anonymisation, observation date

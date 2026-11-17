@@ -1,0 +1,27 @@
+{
+ "T_obs_utc": "2026-06-23T13:44:17+00:00",
+ "groups": {
+  "attrition (cohort)": {
+   "accounts": 908,
+   "retrieved_again": 908,
+   "submissions_equal": 907,
+   "submissions_more_now": 1,
+   "submissions_fewer_now": 0,
+   "rated_contests_equal": 908,
+   "now_fewer_submissions_than_rated_contests": 0,
+   "now_more_than_15_rated_contests_per_month": 0,
+   "now_failing_the_data_quality_rule": 0
+  },
+  "active (cohort)": {
+   "accounts": 3421,
+   "retrieved_again": 2669,
+   "submissions_equal": 2261,
+   "submissions_more_now": 408,
+   "submissions_fewer_now": 0,
+   "rated_contests_equal": 2621,
+   "now_fewer_submissions_than_rated_contests": 0,
+   "now_more_than_15_rated_contests_per_month": 0,
+   "now_failing_the_data_quality_rule": 0
+  }
+ }
+}

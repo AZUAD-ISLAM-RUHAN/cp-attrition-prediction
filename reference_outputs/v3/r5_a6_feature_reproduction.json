@@ -1,0 +1,30 @@
+{
+ "attrition": {
+  "accounts_compared": 908,
+  "share_reproducing_released_value": {
+   "acceptance_rate": 0.9989,
+   "math_solve_rate": 1.0,
+   "ds_solve_rate": 1.0,
+   "upsolves_per_contest": 1.0,
+   "avg_struggle_minutes": 0.9989,
+   "post_drop_recovery": 1.0,
+   "total_problems_solved": 0.9989,
+   "total_submissions": 0.9989,
+   "total_contests": 1.0
+  }
+ },
+ "active": {
+  "accounts_compared": 2664,
+  "share_reproducing_released_value": {
+   "acceptance_rate": 0.86,
+   "math_solve_rate": 0.8765,
+   "ds_solve_rate": 0.8986,
+   "upsolves_per_contest": 0.9291,
+   "avg_struggle_minutes": 0.8559,
+   "post_drop_recovery": 0.747,
+   "total_problems_solved": 0.854,
+   "total_submissions": 0.8476,
+   "total_contests": 0.9839
+  }
+ }
+}

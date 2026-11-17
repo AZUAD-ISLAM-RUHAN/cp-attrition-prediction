@@ -1,0 +1,236 @@
+{
+ "T_obs_utc_window": [
+  "2026-06-23T13:41:18+00:00",
+  "2026-06-23T13:44:17+00:00"
+ ],
+ "checked_on_utc": "2026-11-17T14:29:06+00:00",
+ "b4_return_check": {
+  "attrition_accounts": 908,
+  "account_not_found": 0,
+  "api_errors": 0,
+  "submitted_again_after_T_obs": 296,
+  "share_submitted_again": 0.326
+ },
+ "e4_accounts_shown_as_3_0": [
+  {
+   "status": "Active",
+   "idle_months_at_T_obs": [
+    2.9697,
+    2.9698
+   ],
+   "idle_days_at_T_obs": [
+    89.09,
+    89.09
+   ]
+  },
+  {
+   "status": "Active",
+   "idle_months_at_T_obs": [
+    2.9706,
+    2.9707
+   ],
+   "idle_days_at_T_obs": [
+    89.12,
+    89.12
+   ]
+  },
+  {
+   "status": "Active",
+   "idle_months_at_T_obs": [
+    2.9854,
+    2.9855
+   ],
+   "idle_days_at_T_obs": [
+    89.56,
+    89.56
+   ]
+  },
+  {
+   "status": "Active",
+   "idle_months_at_T_obs": [
+    2.9911,
+    2.9912
+   ],
+   "idle_days_at_T_obs": [
+    89.73,
+    89.73
+   ]
+  },
+  {
+   "status": "Active",
+   "idle_months_at_T_obs": [
+    2.9948,
+    2.9949
+   ],
+   "idle_days_at_T_obs": [
+    89.84,
+    89.85
+   ]
+  },
+  {
+   "status": "Active",
+   "idle_months_at_T_obs": [
+    2.9959,
+    2.9959
+   ],
+   "idle_days_at_T_obs": [
+    89.88,
+    89.88
+   ]
+  },
+  {
+   "status": "Active",
+   "idle_months_at_T_obs": [
+    2.9971,
+    2.9971
+   ],
+   "idle_days_at_T_obs": [
+    89.91,
+    89.91
+   ]
+  },
+  {
+   "status": "Stopped",
+   "idle_months_at_T_obs": [
+    3.0015,
+    3.0016
+   ],
+   "idle_days_at_T_obs": [
+    90.04,
+    90.05
+   ]
+  },
+  {
+   "status": "Stopped",
+   "idle_months_at_T_obs": [
+    3.0058,
+    3.0059
+   ],
+   "idle_days_at_T_obs": [
+    90.17,
+    90.18
+   ]
+  },
+  {
+   "status": "Stopped",
+   "idle_months_at_T_obs": [
+    3.009,
+    3.0091
+   ],
+   "idle_days_at_T_obs": [
+    90.27,
+    90.27
+   ]
+  },
+  {
+   "status": "Stopped",
+   "idle_months_at_T_obs": [
+    3.0095,
+    3.0096
+   ],
+   "idle_days_at_T_obs": [
+    90.29,
+    90.29
+   ]
+  },
+  {
+   "status": "Stopped",
+   "idle_months_at_T_obs": [
+    3.0175,
+    3.0176
+   ],
+   "idle_days_at_T_obs": [
+    90.52,
+    90.53
+   ]
+  },
+  {
+   "status": "Stopped",
+   "idle_months_at_T_obs": [
+    3.0244,
+    3.0245
+   ],
+   "idle_days_at_T_obs": [
+    90.73,
+    90.73
+   ]
+  },
+  {
+   "status": "Stopped",
+   "idle_months_at_T_obs": [
+    3.025,
+    3.0251
+   ],
+   "idle_days_at_T_obs": [
+    90.75,
+    90.75
+   ]
+  },
+  {
+   "status": "Stopped",
+   "idle_months_at_T_obs": [
+    3.0284,
+    3.0285
+   ],
+   "idle_days_at_T_obs": [
+    90.85,
+    90.85
+   ]
+  },
+  {
+   "status": "Stopped",
+   "idle_months_at_T_obs": [
+    3.0336,
+    3.0336
+   ],
+   "idle_days_at_T_obs": [
+    91.01,
+    91.01
+   ]
+  },
+  {
+   "status": "Stopped",
+   "idle_months_at_T_obs": [
+    3.0361,
+    3.0362
+   ],
+   "idle_days_at_T_obs": [
+    91.08,
+    91.09
+   ]
+  },
+  {
+   "status": "Stopped",
+   "idle_months_at_T_obs": [
+    3.039,
+    3.0391
+   ],
+   "idle_days_at_T_obs": [
+    91.17,
+    91.17
+   ]
+  },
+  {
+   "status": "Stopped",
+   "idle_months_at_T_obs": [
+    3.0421,
+    3.0422
+   ],
+   "idle_days_at_T_obs": [
+    91.26,
+    91.27
+   ]
+  },
+  {
+   "status": "Stopped",
+   "idle_months_at_T_obs": [
+    3.0484,
+    3.0485
+   ],
+   "idle_days_at_T_obs": [
+    91.45,
+    91.45
+   ]
+  }
+ ]
+}

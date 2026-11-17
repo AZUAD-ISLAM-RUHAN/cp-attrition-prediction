@@ -1,0 +1,18 @@
+{
+ "rows": 6927,
+ "all_non_time_columns_identical_in_same_order": true,
+ "rows_differing_by_0.1_in_time_columns": {
+  "account_age_months": 236,
+  "months_since_last_submission": 187
+ },
+ "status_label_changes_between_the_two_builds": 3,
+ "ratings_match_user_info": true,
+ "T_obs_published_file_utc": [
+  "2026-06-23T13:41:18+00:00",
+  "2026-06-23T13:44:17+00:00"
+ ],
+ "T_obs_private_copy_utc": [
+  "2026-06-23T17:35:15+00:00",
+  "2026-06-23T17:35:32+00:00"
+ ]
+}

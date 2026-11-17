@@ -1,0 +1,450 @@
+Behavioral Differences Between Active and Inactive Users in Competitive Programming: A Rating-Restricted Analysis of Codeforces Activity
+
+Azuad Islam Ruhan, Golam Mostofa Naeem, Rakibul Islam Rafi, Sherin Afrin Mim, Nazira Bani Opi, Dewan Fahad Chowdhury, and Md. Rejaul Korim Sadi
+
+Abstract—We compared the recorded behavior of competitive programmers who became inactive on Codeforces with that of active users of similar skill. From 6,927 accounts collected through the public Codeforces application programming interface in June 2026, we removed 888 accounts whose retrieved submission histories were incomplete and restricted both groups to a peak rating below 1500. This left 3,421 active accounts and 908 accounts with no submission for at least three months, labeled attrition. The differences between the groups were small. Accounts labeled attrition accepted smaller shares of their attempts, overall and on mathematics and data-structure problems (rank-biserial r from -0.16 to -0.12), and solved fewer problems per rated contest (median 5.95 versus 7.80; r = -0.13); struggle time, upsolving and recovery after rating drops did not differ after correction for multiple testing. Two pre-specified models using eight features that do not depend on the length of the observation window reached cross-validated areas under the receiver operating characteristic curve of 0.596 (logistic regression) and 0.611 (random forest), with probabilities barely better than the base rate. Across random samples, stricter cleaning rules, other definitions of inactivity and matching on account tenure, the value ranged from 0.58 to 0.66. Using only activity from the 6 or 12 months ending three months before each user's last submission, it was 0.59 to 0.65, so a small difference precedes inactivity, but it is too weak to identify individual users at risk. The data and code are publicly archived, and one command regenerates every reported number.
+
+Index Terms—Codeforces, competitive programming, educational data mining, learner disengagement, robustness analysis
+
+Azuad Islam Ruhan (corresponding author) is an undergraduate researcher in the Department of Computer Science and Engineering, Metropolitan University, Sylhet, Bangladesh. E-mail: ahnafruhan7@gmail.com
+
+Golam Mostofa Naeem is a Senior Lecturer in the Department of Computer Science and Engineering, Metropolitan University, Sylhet, Bangladesh. E-mail: gmnaeem7@gmail.com
+
+Rakibul Islam Rafi is an undergraduate student in the Department of Computer Science and Engineering, Metropolitan University, Sylhet, Bangladesh. E-mail: rakibulislamrafi36@gmail.com
+
+Sherin Afrin Mim is an undergraduate student in the Department of Computer Science and Engineering, Metropolitan University, Sylhet, Bangladesh. E-mail: sherinafrinmim6@gmail.com
+
+Nazira Bani Opi is an undergraduate student in the Department of Computer Science and Engineering, Metropolitan University, Sylhet, Bangladesh. E-mail: nazirabani2@gmail.com
+
+Dewan Fahad Chowdhury is an undergraduate student in the Department of Computer Science and Engineering, Metropolitan University, Sylhet, Bangladesh. E-mail: dewanfahadc@gmail.com
+
+Md. Rejaul Korim Sadi is an undergraduate researcher in the Department of Computer Science and Engineering, Metropolitan University, Sylhet, Bangladesh. E-mail: rejaulkorimsadi@gmail.com
+
+I. INTRODUCTION
+
+Competitive programming (CP) is a widely used extra-curricular route for building algorithmic reasoning in computer science students [1], [2]. Platforms such as Codeforces supply immediate verdicts, timed contests and a public rating against which progress can be measured [3]. Problems arrive without hints, under fixed time and memory limits, and the learner decides alone what to try next [4].
+
+Many learners who start do not stay. Dropout from introductory programming courses is well documented: students who leave most often report a lack of time or motivation and difficulty with the course [5], and learning to program is widely recognized as hard [6]. Educational data mining has modeled dropout from grade records and from the activity logs of massive open online courses [7], [8]. Voluntary competitive practice sits outside these settings: it happens off the transcript and has no deadline, whereas data-mining studies of programming have mostly examined courses [9].
+
+This paper asks what the public activity records of a large platform can and cannot tell us about learners who stop. We address three questions. RQ1: Do users who become inactive on Codeforces differ in their recorded behavior from active users whose peak rating lies in the same range, and by how much? RQ2: How well do behavioral features that do not depend on the length of the observation window separate the two groups, and how sensitive is that answer to the choices made in the analysis: which active users are sampled, how incomplete records are cleaned, how inactivity is defined, and how long users have held their accounts? RQ3: Is a difference already present in the activity recorded before users became inactive?
+
+The paper makes three contributions. First, it builds a rating-restricted cohort of 4,329 Codeforces accounts with a documented stage-by-stage flow and an audit of incomplete platform histories. Second, it reports the size of the behavioral differences, with confidence intervals, separating measures that are comparable between active and inactive users from measures that depend on how long each user was observed. Third, it shows how a modest classification signal behaves across analysis choices, including measures restricted to the months before inactivity, reporting discrimination, precision–recall performance and calibration rather than a single best score. The data and code are archived with a DOI and regenerate every number in the paper.
+
+II. RELATED WORK
+
+A. Educational Data Mining and Dropout
+
+Work on student retention has moved from predicting degree completion with demographic and first-year records [7], [10] to modeling dynamic behavior such as submission patterns and forum participation in online courses [8]. In introductory programming, data logged while students program predicted course performance better than traditional background factors [11], and data-mining techniques can identify students at risk of failure early in a course [12]. Most of this work studies enrolled students with a defined course end, where dropout is observed directly.
+
+B. Programming Platform Telemetry
+
+Studies of programming environments and online judges treat compilation errors, inter-submission gaps and wrong-answer rates as signals of difficulty [9], [11]. These logs record what learners did, not why. Voluntary competitive participation also differs from course work: there is no deadline, and disengagement unfolds over weeks or months, so the moment of quitting is not observed but has to be inferred from inactivity.
+
+C. Motivation and Persistence
+
+Motivational orientation and self-efficacy are established predictors of persistence [13], [14], and the adoption of programming contests has been described as a diffusion process driven by peers and perceived benefit [15]. None of these factors is visible in platform logs, which bounds what a log-based study can explain. Using learners' activity data also raises questions of agency and consent [16], which shaped our decision to publish only pseudonymized aggregates.
+
+III. DATA AND METHODS
+
+A. Data Collection
+
+Submission histories, contest records and profile data were retrieved from the public Codeforces application programming interface (API). The sampling frame was the platform's list of rated users (user.ratedList), from which a pool of 26,000 handles was drawn, stratified by current rating band in proportion to band size with at least 50 per band (seed 42). Accounts were retained only if they had at least five rated contests, a current rating between 1 and 2399 and at least one accepted submission; 6,927 accounts met these criteria. For each account the collection requested up to 10,000 submissions (user.status) and the full rating history (user.rating).
+
+All measures refer to one observation time, T_(obs), the moment the feature file was built. The collection notebook did not record it; matching each account's rounded age in the released file to its registration time in the raw API records places it on 23 June 2026 between 13:41 and 13:44 UTC. Handles are replaced by a salted hash in every released file.
+
+B. Labels
+
+We call an account inactive when its last retrieved submission lies at least three months before T_(obs), where months are computed as elapsed days divided by 30 and the threshold is applied to the unrounded value (at least 90 days). Accounts that meet this condition and never reached a rating of 1500 are labeled attrition. The label records inactivity at one date; it does not establish that a user has stopped for good, and Section IV-D tests how the results change with longer inactivity thresholds. Accounts with a last submission less than 90 days before T_(obs) are labeled active.
+
+The rating restriction applies to both groups. Inactive accounts that had reached 1500 (411) are excluded, because leaving after reaching an intermediate level may have other causes, and active accounts are likewise restricted to a peak rating below 1500. Without this restriction, a classifier could separate the groups partly by skill level, since the inactive group would be capped by construction and the active group would not. The threshold of 1500 is a study choice inside the Codeforces Specialist band (1400–1599); Section IV-D repeats the analysis with 1400 and 1600.
+
+C. Incomplete Histories
+
+Every rated contest requires at least one submission, so an account with fewer retrieved submissions than rated contests has an incomplete history. Such accounts, and accounts with more than 15 rated contests per month of submission span, were excluded. The rule removed 888 of the 6,927 accounts (12.8%), all of them active at T_(obs). The removed accounts had a median of 7 retrieved submissions against a median of 24 rated contests. The collection requested complete histories in a single call, and its consistency check flagged only responses that were completely empty, so partial responses were not detected at collection time. The feature file does not show why the affected accounts are all active; the raw API responses are needed to establish the cause (Section V). Because the rule was defined after the data had been inspected, Section IV-D also reports three stricter rules.
+
+D. Behavioral Measures
+
+We use eight measures that do not depend on how long an account was observed. Six are taken directly from the API data: the shares of accepted attempts overall, on mathematics-tagged problems and on data-structure-tagged problems; mean struggle time, the time from the first attempt on a problem to its acceptance; upsolves per rated contest, accepted practice submissions on problems of contests the user took part in; and post-drop recovery, the mean rating change in the contest that follows a rating drop (0 for accounts without a drop). Two are constructed:
+
+SPC_(i) = S_(i) / C_(i) (1)
+
+where S_(i) is the number of distinct problems user i solved and C_(i) the number of rated contests entered, and
+
+EDI_(i) = U_(i) × ΔT_(struggle,i) (2)
+
+where U_(i) is upsolves per rated contest and ΔT_(struggle,i) is mean struggle time in minutes. Problems solved per contest (SPC) relates practice volume to contest participation. The Editorial Dependency Index (EDI) was constructed to capture slow, after-the-fact solving. Four further measures, rated contests per month, problems solved per month, account age and the total number of rated contests, depend on the length of the observed activity span, which ends at the last submission for inactive users and at T_(obs) for active users. They are reported descriptively but are not used in the models. Table V in Appendix A gives every definition as implemented.
+
+E. Statistical Analysis
+
+Group differences are reported as medians with interquartile ranges and as rank-biserial correlations [17], r = P(X_(attrition) > X_(active)) − P(X_(attrition) < X_(active)), so that a negative r means lower values in the attrition group. Confidence intervals come from 1,000 bootstrap resamples of accounts [18]. Table II reports both the Mann–Whitney p-value [19] and the Holm-adjusted p-value over the 13 measures tested [20], labeled as such.
+
+Two models were specified before the analysis: logistic regression and a random forest with 200 trees [21], both implemented in scikit-learn [22] with median imputation and standardization fitted inside each training fold. Using all eligible accounts avoids depending on one random sample of active users. Performance is estimated by stratified 5-fold cross-validation repeated five times [23]. The main measure is the area under the receiver operating characteristic curve (ROC-AUC), with a 95% confidence interval from 2,000 bootstrap resamples of the out-of-fold predictions; every metric is computed within each repeat and then averaged over the five repeats. Because only 21% of accounts are labeled attrition, a class imbalance under which ROC-AUC alone can give a favorable impression [24], we also report the area under the precision–recall curve (PR-AUC) [25], whose value for random guessing equals that share, and the Brier score with a calibration curve [26], [27]. Restricting the analysis to two models limits the optimism that comes from selecting the best of many [28]. Features that leak information about the label from outside the observation period were excluded by design [29].
+
+To test how much the results depend on analysis choices, we repeat the models (i) on 50 balanced samples of active users, (ii) under stricter rules for incomplete histories, (iii) with inactivity thresholds of 3, 6 and 12 months crossed with rating limits of 1400, 1500 and 1600, and (iv) after matching each attrition account to the active account nearest in account age and number of rated contests. The contribution of the two constructed measures is tested by removing them and comparing paired cross-validation folds. Permutation importance is computed on every held-out fold; it is reported with caution because several measures are correlated [30].
+
+IV. RESULTS
+
+To test whether the difference is present before users become inactive (RQ3), the eight model measures were recomputed from a window that ends three months before each account's last submission and covers the preceding 6 or 12 months; active accounts, whose last submission lies close to T_(obs), are treated in the same way. Accounts need at least five rated contests and one accepted submission inside the window. For this analysis the submission and rating histories of the cohort were retrieved again from the public API in November 2026, at a rate within the platform's limits, and cut at T_(obs). Histories were obtained for all 908 attrition accounts and for 2,669 of the 3,421 active accounts (78%) before the retrieval was stopped; on these accounts the whole-history models give ROC-AUC 0.597 and 0.608, as on the full cohort (0.596 and 0.611), so the subset does not change the result. For the 908 attrition accounts, which made no submissions after their retrieval in June, the measures recomputed from these histories equal the released values for at least 99.9% of accounts on every measure, so the retrieval reproduces the data analyzed above. The same two models and cross-validation are used.
+
+A. Cohort
+
+Table I gives the count at every stage. The analysis cohort contains 4,329 accounts: 3,421 active and 908 labeled attrition. The rating restriction leaves the two groups with nearly identical peak ratings (median 1153 versus 1154; standardized mean difference 0.05). The groups differ in tenure: the active accounts are younger (median account age 18.7 versus 33.5 months) but have entered the same median number of rated contests (13).
+
+TABLE I
+
+COHORT CONSTRUCTION, STAGE BY STAGE
+
+  -----------------------------------------------------------------------------------
+  Stage                                                                Accounts
+  -------------------------------------------------------------------- --------------
+  Retrieved from the API (≥ 5 rated contests, current rating 1–2399)   6,927
+
+  Peak rating below 2400                                               6,892
+
+  Complete submission history (data-quality rule)                      6,012
+
+  active at T_(obs)                                                    4,693
+
+  inactive for ≥ 3 months at T_(obs)                                   1,319
+
+  Peak rating below 1500: active                                       3,421
+
+  Peak rating below 1500: inactive (labeled attrition)                 908
+
+  Analysis cohort                                                      4,329
+  -----------------------------------------------------------------------------------
+
+The data-quality rule removes 888 accounts from the full file and 880 after the peak-rating step. Inactive accounts with a peak rating of 1500 or more (411) and active accounts with a peak of 1500 or more (1,272) are excluded.
+
+B. Group Differences
+
+Table II and Fig. 1 report all measures. Among the eight measures used in the models, the largest differences are in acceptance: accounts labeled attrition accepted smaller shares of their attempts on mathematics-tagged problems (median 0.464 versus 0.500; r = -0.16, 95% CI [-0.20, -0.12]), overall (r = -0.13) and on data-structure-tagged problems (r = -0.12). They also solved fewer problems per rated contest, a median of 5.95 against 7.80 (r = -0.13, 95% CI [-0.17, -0.09]). Struggle time, upsolving, post-drop recovery and the Editorial Dependency Index do not differ after Holm correction. Every effect is small: no measure used in the models exceeds |r| = 0.16.
+
+The window-dependent measures show larger differences, partly by construction. Accounts labeled attrition entered fewer rated contests per month (median 0.89 versus 1.13) and solved fewer problems per month (5.35 versus 8.69). Their accounts are older, so their activity is spread over a longer span, while the total number of rated contests is similar. These measures are therefore descriptive only.
+
+TABLE II
+
+BEHAVIORAL MEASURES, ACTIVE (N = 3,421) VERSUS ATTRITION (N = 908)
+
+  --------------------------------------------------------------------------------------------------------------------------------
+  Measure                          Active, median [IQR]   Attrition, median [IQR]   r [95% CI]             p (unadj.)   p (Holm)
+  -------------------------------- ---------------------- ------------------------- ---------------------- ------------ ----------
+  Problems solved per contest      7.8 [4.0, 13.3]        6.0 [3.2, 10.9]           -0.13 [-0.17, -0.09]   < 0.001      < 0.001
+
+  Math-tag acceptance rate         0.500 [0.417, 0.591]   0.464 [0.380, 0.550]      -0.16 [-0.20, -0.12]   < 0.001      < 0.001
+
+  Data-structure acceptance rate   0.436 [0.308, 0.571]   0.397 [0.257, 0.500]      -0.12 [-0.16, -0.08]   < 0.001      < 0.001
+
+  Overall acceptance rate          0.490 [0.413, 0.576]   0.462 [0.382, 0.549]      -0.13 [-0.17, -0.09]   < 0.001      < 0.001
+
+  Struggle time (min)              469 [36, 2779]         424 [23, 3010]            -0.01 [-0.05, 0.03]    0.539        1.000
+
+  Upsolves per contest             0.250 [0.000, 0.600]   0.253 [0.000, 0.630]      0.01 [-0.03, 0.06]     0.540        1.000
+
+  Post-drop recovery               1.3 [0.0, 19.0]        0.0 [-2.4, 16.8]          -0.05 [-0.09, -0.01]   0.011        0.055
+
+  Editorial dependency index       82.6 [0.0, 1126.0]     73.9 [0.0, 1177.5]        -0.00 [-0.04, 0.04]    0.922        1.000
+
+  Rated contests per month†        1.1 [0.6, 2.0]         0.9 [0.5, 1.6]            -0.17 [-0.21, -0.13]   < 0.001      < 0.001
+
+  Problems solved per month†       8.7 [4.0, 17.2]        5.3 [2.6, 10.7]           -0.26 [-0.30, -0.22]   < 0.001      < 0.001
+
+  Account age (months)†            18.7 [10.1, 29.7]      33.5 [22.1, 51.0]         0.48 [0.44, 0.51]      < 0.001      < 0.001
+
+  Rated contests (total)†          13.0 [8.0, 24.0]       13.0 [7.0, 25.0]          0.01 [-0.03, 0.05]     0.627        1.000
+
+  Submissions per contest‡         17.2 [9.0, 29.1]       14.2 [8.0, 24.7]          -0.10 [-0.14, -0.05]   < 0.001      < 0.001
+  --------------------------------------------------------------------------------------------------------------------------------
+
+r: rank-biserial correlation, P(attrition > active) − P(attrition < active); negative values mean lower values in the attrition group. p (unadj.): two-sided Mann–Whitney test; p (Holm): adjusted over the 13 measures. † Depends on the length of the observed activity span; descriptive only, not used in the models. ‡ Data-quality diagnostic (Section IV-D).
+
+[]
+
+Fig. 1. Rank-biserial correlations with 95% bootstrap confidence intervals for the twelve behavioral measures. Filled markers: measures used in the models; open markers: measures that depend on the length of the observed activity span.
+
+C. Model Performance
+
+Table III summarizes performance. Logistic regression reached a cross-validated ROC-AUC of 0.596 (95% CI [0.574, 0.617]) and the random forest 0.611 ([0.590, 0.631]). Both are above chance, but the separation is weak. The PR-AUC values (0.286 and 0.295) exceed the base rate of 0.210, and the Brier scores (0.163 and 0.164) are close to the value of 0.166 obtained by predicting the base rate for every account. In Fig. 2 the mean predicted probability per decile ranges from 0.07 to 0.45 for the random forest and from 0.11 to 0.32 for logistic regression; the random forest underestimates the share of attrition in its lowest deciles and overestimates it in its highest decile. The models rank accounts slightly better than chance but do not provide usable individual risk estimates.
+
+TABLE III
+
+CROSS-VALIDATED PERFORMANCE OF THE TWO PRE-SPECIFIED MODELS (N = 4,329)
+
+  -------------------------------------------------------------------------------------------------------------------------
+  Model                           ROC-AUC [95% CI]       Fold SD   PR-AUC [95% CI]        Brier score   Balanced accuracy
+  ------------------------------- ---------------------- --------- ---------------------- ------------- -------------------
+  Logistic regression             0.596 [0.574, 0.617]   0.024     0.286 [0.263, 0.313]   0.163         0.562
+
+  Random forest                   0.611 [0.590, 0.631]   0.019     0.295 [0.269, 0.322]   0.164         0.564
+
+  Reference: chance / base rate   0.500                  –         0.210                  0.166         0.500
+  -------------------------------------------------------------------------------------------------------------------------
+
+Stratified 5-fold cross-validation repeated five times on all eligible accounts; each metric is computed on the out-of-fold predictions of one repeat and averaged over the five repeats. Confidence intervals: 2,000 bootstrap resamples of accounts in each repeat, bounds averaged over repeats. Balanced accuracy at a threshold that flags the same share of accounts as the base rate. The base-rate Brier score is p(1 − p) with p the share of attrition.
+
+[]
+
+Fig. 2. Calibration of the out-of-fold predicted probabilities of the first cross-validation repeat (deciles) with 95% bootstrap bands. The dotted line marks the base rate of attrition.
+
+D. Robustness to Analysis Choices
+
+Table IV and Fig. 3 repeat the models under different choices. On 50 balanced samples of 908 active accounts, the random forest averaged 0.598 (2.5th–97.5th percentile 0.569–0.627) and logistic regression 0.593 (0.578–0.610). A result reported from a single sample can therefore differ from the typical value by several hundredths.
+
+Among the accounts kept by the data-quality rule, 117 active accounts but only 4 attrition accounts have fewer than two submissions per rated contest; the medians are 17.20 and 14.15. Some incomplete histories may therefore remain among active accounts. Requiring at least 2, 3 or 5 submissions per contest changes the random-forest ROC-AUC to 0.597, 0.599 and 0.606, and the logistic-regression value to 0.597, 0.597 and 0.597.
+
+Longer inactivity thresholds give similar or slightly higher values: at 12 months with the 1500 limit, 0.624 for the random forest and 0.656 for logistic regression, with 282 accounts labeled attrition. Rating limits of 1400 and 1600 leave the results essentially unchanged. The difference in problems solved per contest keeps its direction in all nine definitions (r from -0.19 to -0.12).
+
+Matching each attrition account to the active account nearest in account age and number of rated contests removes the tenure difference (median age of the matched active accounts 33.2 months). The ROC-AUC then falls to 0.579 for the random forest (range over 20 matchings 0.566–0.598) and 0.591 for logistic regression. Part of the signal is therefore associated with tenure. Across all the analyses in Table IV the values stay between 0.58 and 0.66: a small but persistent difference, not a basis for identifying individual users.
+
+TABLE IV
+
+ROC-AUC UNDER ALTERNATIVE ANALYSIS CHOICES
+
+  ----------------------------------------------------------------------------------------------------------------------------------------
+  Analysis                                                                        Accounts   Logistic regression    Random forest
+  ------------------------------------------------------------------------------- ---------- ---------------------- ----------------------
+  Primary: all eligible accounts                                                  4,329      0.596 [0.574, 0.617]   0.611 [0.590, 0.631]
+
+  Balanced samples (50 draws), mean [2.5–97.5%]                                   1,816      0.593 [0.578, 0.610]   0.598 [0.569, 0.627]
+
+  ≥ 2 submissions per contest                                                     4,208      0.597 ± 0.012          0.597 ± 0.022
+
+  ≥ 3 submissions per contest                                                     4,118      0.597 ± 0.022          0.599 ± 0.016
+
+  ≥ 5 submissions per contest                                                     3,882      0.597 ± 0.030          0.606 ± 0.022
+
+  Peak < 1400, inactive ≥ 3 months                                                3,724      0.592 ± 0.018          0.609 ± 0.017
+
+  Peak < 1400, inactive ≥ 6 months                                                3,402      0.628 ± 0.034          0.621 ± 0.021
+
+  Peak < 1400, inactive ≥ 12 months                                               3,178      0.656 ± 0.021          0.620 ± 0.022
+
+  Peak < 1500, inactive ≥ 6 months                                                3,966      0.634 ± 0.040          0.630 ± 0.025
+
+  Peak < 1500, inactive ≥ 12 months                                               3,703      0.656 ± 0.019          0.624 ± 0.023
+
+  Peak < 1600, inactive ≥ 3 months                                                4,701      0.597 ± 0.013          0.610 ± 0.016
+
+  Peak < 1600, inactive ≥ 6 months                                                4,314      0.635 ± 0.012          0.624 ± 0.017
+
+  Peak < 1600, inactive ≥ 12 months                                               4,027      0.660 ± 0.029          0.615 ± 0.040
+
+  Matched on account age and contests (20 matchings), mean [range]                1,816      0.591 [0.583, 0.599]   0.579 [0.566, 0.598]
+
+  Before inactivity: 6-month window ending 3 months before the last submission    1,506      0.650 [0.615, 0.684]   0.624 [0.587, 0.661]
+
+  Before inactivity: 12-month window ending 3 months before the last submission   2,091      0.609 [0.580, 0.638]   0.586 [0.557, 0.616]
+  ----------------------------------------------------------------------------------------------------------------------------------------
+
+± values are standard deviations over cross-validation folds; brackets give 95% bootstrap confidence intervals unless stated. Rows with a rating limit or inactivity threshold change only that element of the primary definition (peak < 1500, inactive ≥ 3 months). The two last rows use only accounts with at least five rated contests in the window.
+
+[]
+
+Fig. 3. ROC-AUC of logistic regression (circles) and random forest (squares) under the analyses of Table IV, with 95% confidence intervals (primary), 2.5–97.5% ranges (balanced samples), ranges over matchings, or ± one fold standard deviation. The dashed line marks chance.
+
+E. Contribution of Individual Measures
+
+Removing the Editorial Dependency Index changes the ROC-AUC by +0.001 for logistic regression and -0.004 for the random forest, so it adds nothing measurable. Removing problems solved per contest lowers the values by 0.015 and 0.033 (Fig. 4(b)). Problems solved per contest also has the largest permutation importance in the random forest (mean drop 0.050; 2.5th–97.5th percentile over folds 0.023–0.077) and ranks first in 48% of folds (Fig. 4(a)). Several measures are strongly correlated (for example, the overall and mathematics-tagged acceptance rates), and permutation importance can misattribute importance among correlated measures [30], so the ranking below the first measure is not reliable.
+
+[]
+
+Fig. 4. (a) Permutation importance in the random forest on every held-out fold (mean and 2.5–97.5% range). (b) Change in ROC-AUC when the constructed measures are removed, over paired cross-validation folds.
+
+F. Activity Before Inactivity
+
+In the window of 6 months, 1,208 active and 298 attrition accounts had at least five rated contests and one accepted submission; the ROC-AUC was 0.650 [0.615, 0.684] for logistic regression and 0.624 [0.587, 0.661] for the random forest. In the window of 12 months (1,631 and 460 accounts) it was 0.609 [0.580, 0.638] and 0.586 [0.557, 0.616] (Table IV). These values are similar to, or slightly higher than, those of the whole-history analysis (0.596 and 0.611), so a small difference is already present in the months before users become inactive. Four measures are lower in the attrition group in both windows after Holm correction: problems solved per contest (r = -0.29 and -0.22), struggle time (r = -0.17 and -0.12), overall acceptance rate (r = -0.14 and -0.09) and math-tag acceptance rate (r = -0.12 and -0.08). Because only 33% (6 months) and 51% (12 months) of attrition accounts had five rated contests in the window, this analysis describes users who were still competing regularly in the months before they stopped.
+
+V. DISCUSSION
+
+A. What the Results Show
+
+Users who became inactive differ from active users of similar peak rating in a few measurable ways: they accepted slightly smaller shares of their attempts and solved fewer problems per rated contest. These differences are small, persist across sampling, cleaning rules and definitions of inactivity, and shrink when tenure is controlled. When the measures are restricted to the months before inactivity, the groups still differ about as much, so part of the difference precedes inactivity; problems solved per contest remains the clearest signal. The difference is small: it does not show why users stop, and it cannot identify individual users at risk.
+
+B. Limitations
+
+The label is inactivity at one date. Some accounts labeled attrition may have resumed after T_(obs), and longer inactivity thresholds reduce but do not remove this error. A re-query of the public Codeforces API on 17 November 2026, about five months after T_(obs), found that 296 of the 908 accounts labeled attrition (32.6%) had submitted again; none had been deleted. The label therefore marks a pause of at least three months at T_(obs), not a permanent departure.
+
+The retrieved histories of 888 accounts were incomplete, all of them active. They were excluded, but the cause is not yet established, and the remaining imbalance in submissions per contest suggests that some incomplete active histories may remain. The rule for excluding them was chosen after inspecting the data; Table IV shows how stricter rules change the results.
+
+The data come from one platform and from a worldwide population of users, not only students, so the results do not describe any particular group of learners. The observation time T_(obs) was not recorded by the collection code and is reconstructed from the data (Section III). The analysis of activity before inactivity uses histories retrieved again in November 2026 and includes only accounts with enough rated contests in the window. The two groups differ in tenure, and matching on tenure reduces the signal. Finally, the analysis reports several variants of the same models; although the two models were fixed in advance, the variants are not independent tests and should be read as a sensitivity analysis.
+
+VI. CONCLUSION
+
+In a rating-restricted cohort of 4,329 Codeforces accounts, users who became inactive accepted slightly smaller shares of their attempts and solved fewer problems per contest than active users of similar skill. Models built on eight window-invariant measures separate the groups only weakly (ROC-AUC 0.58–0.66 across analyses) and give poorly informative probabilities. A difference of similar size is already present in the months before inactivity. Platform logs alone therefore offer a modest description of disengagement, not a means of predicting it for individuals. The archived data and code allow every result to be checked and extended.
+
+APPENDIX A: FEATURE DEFINITIONS
+
+Table V lists every measure, its definition as implemented in the collection code, and its use in this paper.
+
+TABLE V
+
+BEHAVIORAL MEASURES AS IMPLEMENTED
+
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  Measure                          Definition                                                                                                                 Source                      Use
+  -------------------------------- -------------------------------------------------------------------------------------------------------------------------- --------------------------- --------------
+  Problems solved per contest      Distinct problems solved / rated contests entered, (1)                                                                     API submissions, contests   model
+
+  Math-tag acceptance rate         Accepted / all submissions on problems tagged math, number theory, combinatorics or probabilities (overall rate if none)   API submissions             model
+
+  Data-structure acceptance rate   Accepted / all submissions on problems tagged data structures, trees, graphs or dsu (overall rate if none)                 API submissions             model
+
+  Overall acceptance rate          Accepted submissions / all submissions                                                                                     API submissions             model
+
+  Struggle time                    Mean minutes from first attempt to first acceptance, over solved problems                                                  API submissions             model
+
+  Upsolves per contest             Accepted practice-mode submissions on problems of contests the user was rated in / rated contests                          API submissions             model
+
+  Post-drop recovery               Mean rating change in the contest after a rating drop, in rating points (0 if no drop)                                     API rating history          model
+
+  Editorial dependency index       Upsolves per contest × struggle time, (2)                                                                                  constructed                 model
+
+  Rated contests per month         Rated contests / months from first to last submission (at least 1)                                                         API contests                descriptive
+
+  Problems solved per month        Distinct problems solved / months from first to last submission (at least 1)                                               API submissions             descriptive
+
+  Account age                      Months from registration to T_(obs)                                                                                        API profile                 descriptive
+
+  Rated contests (total)           Number of rated contests entered                                                                                           API rating history          descriptive
+
+  Submissions per contest          Retrieved submissions / rated contests                                                                                     API submissions             data quality
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+A month is 30 days throughout. Inactivity: (T_(obs) − last submission) / 30 days ≥ 3, applied to the unrounded value.
+
+DATA AND CODE AVAILABILITY
+
+The pseudonymized Codeforces feature file from which the analysis cohort is derived, all analysis code and a script that regenerates every number, table and figure of this paper (reproduce_all.sh) are archived on Zenodo:
+
+https://doi.org/10.5281/zenodo.24054464
+
+and developed in the public repository
+
+https://github.com/AZUAD-ISLAM-RUHAN/cp-attrition-prediction
+
+The raw API responses contain Codeforces handles, which identify users; they, the histories retrieved again in November 2026 for the analysis of activity before inactivity, and the salt used to pseudonymize handles are not public, and are available to the editor and reviewers on request for verification.
+
+ACKNOWLEDGMENT
+
+An earlier version of this work was presented orally at EFAST 2026. We are grateful to the anonymous reviewers and the AJSE Editorial Desk for their detailed scrutiny.
+
+AUTHOR CONTRIBUTIONS
+
+Azuad Islam Ruhan led the study: he collected the Codeforces data, built the processing and analysis pipelines, ran the analyses, wrote the manuscript and handled the correspondence with the journal.
+
+Golam Mostofa Naeem supervised the work, helped shape the research question and the methodology, and reviewed and revised the manuscript.
+
+Rakibul Islam Rafi carried out the literature review for the Related Work section and critically revised the manuscript.
+
+Sherin Afrin Mim worked with R. I. Rafi on the literature review for the Related Work section and critically revised the manuscript.
+
+Nazira Bani Opi worked with R. I. Rafi on the literature review for the Related Work section and critically revised the manuscript.
+
+Dewan Fahad Chowdhury worked with M. R. K. Sadi on the Python scripts for collecting and processing the Codeforces data and critically revised the manuscript.
+
+Md. Rejaul Korim Sadi contributed to the design of the study and the data modeling, maintained the data-collection code, led the processing and analysis of the Codeforces logs, and revised the manuscript.
+
+All seven authors meet the ICMJE authorship criteria, approved the final manuscript and take responsibility for its content.
+
+USE OF AI TOOLS
+
+ChatGPT (OpenAI) was used for language editing, to refine the research topic and the initial proposal, and to help draft parts of the original data-collection and analysis code, which the authors reviewed and ran. In preparing the first submission, ChatGPT also suggested references for the Related Work section; three of them did not exist and were not checked by the authors. Every reference in this version has been checked against Crossref or DataCite. Grammarly was used for language editing. During the revision, Claude Opus 5.5 (Anthropic) was used to write and debug the re-analysis code, the figure and manuscript-generation scripts and the verification tests, to check every reference against Crossref, and to draft revised text; OpenAI tools were also used to organize the LaTeX source and to debug code. The authors ran every script, checked the reported numbers against the outputs, and take full responsibility for the content of this paper.
+
+REFERENCES
+
+[1] A. Laaksonen, Guide to Competitive Programming: Learning and Improving Algorithms Through Contests. Cham, Switzerland: Springer, 2017, doi: 10.1007/978-3-319-72547-5.
+
+[2] S. S. Skiena and M. A. Revilla, Programming Challenges: The Programming Contest Training Manual. New York, NY, USA: Springer, 2003, doi: 10.1007/b97559.
+
+[3] S. Combéfis, G. Beresnevičius, and V. Dagienė, “Learning programming through games and contests: Overview, characterisation and discussion,” Olympiads in Informatics, vol. 10, pp. 39–60, 2016, doi: 10.15388/ioi.2016.03.
+
+[4] S. Halim and F. Halim, Competitive Programming 3: The New Lower Bound of Programming Contests. Lulu, 2013.
+
+[5] P. Kinnunen and L. Malmi, “Why students drop out CS1 course?” in Proc. 2nd Int. Workshop on Computing Education Research (ICER), 2006, pp. 97–108, doi: 10.1145/1151588.1151604.
+
+[6] A. Robins, J. Rountree, and N. Rountree, “Learning and teaching programming: A review and discussion,” Computer Science Education, vol. 13, no. 2, pp. 137–172, 2003, doi: 10.1076/csed.13.2.137.14200.
+
+[7] C. Romero and S. Ventura, “Educational data mining: A review of the state of the art,” IEEE Trans. Syst., Man, Cybern. C, vol. 40, no. 6, pp. 601–618, 2010, doi: 10.1109/TSMCC.2010.2053532.
+
+[8] M. Kloft, F. Stiehler, Z. Zheng, and N. Pinkwart, “Predicting MOOC dropout over weeks using machine learning methods,” in Proc. EMNLP 2014 Workshop on Analysis of Large Scale Social Interaction in MOOCs, 2014, pp. 60–65, doi: 10.3115/v1/W14-4111.
+
+[9] P. Ihantola et al., “Educational data mining and learning analytics in programming: Literature review and case studies,” in Proc. ITiCSE Working Group Reports, 2015, pp. 41–63, doi: 10.1145/2858796.2858798.
+
+[10] R. S. J. d. Baker and K. Yacef, “The state of educational data mining in 2009: A review and future visions,” Journal of Educational Data Mining, vol. 1, no. 1, pp. 3–17, 2009, doi: 10.5281/zenodo.3554657.
+
+[11] C. Watson, F. W. B. Li, and J. L. Godwin, “Predicting performance in an introductory programming course by logging and analyzing student programming behavior,” in Proc. IEEE 13th Int. Conf. Advanced Learning Technologies (ICALT), 2013, pp. 319–323, doi: 10.1109/ICALT.2013.99.
+
+[12] E. B. Costa, B. Fonseca, M. A. Santana, F. F. de Araújo, and J. Rego, “Evaluating the effectiveness of educational data mining techniques for early prediction of students’ academic failure in introductory programming courses,” Computers in Human Behavior, vol. 73, pp. 247–256, 2017, doi: 10.1016/j.chb.2017.01.047.
+
+[13] E. L. Deci and R. M. Ryan, Intrinsic Motivation and Self-Determination in Human Behavior. New York, NY, USA: Springer, 1985, doi: 10.1007/978-1-4899-2271-7.
+
+[14] A. Bandura, “Self-efficacy: Toward a unifying theory of behavioral change,” Psychological Review, vol. 84, no. 2, pp. 191–215, 1977, doi: 10.1037/0033-295X.84.2.191.
+
+[15] R. Raman, H. Vachharajani, and K. Achuthan, “Students motivation for adopting programming contests: Innovation-diffusion perspective,” Education and Information Technologies, vol. 23, no. 5, pp. 1919–1932, 2018, doi: 10.1007/s10639-018-9697-3.
+
+[16] P. Prinsloo and S. Slade, “Student vulnerability, agency, and learning analytics: An exploration,” Journal of Learning Analytics, vol. 3, no. 1, pp. 159–182, 2016, doi: 10.18608/jla.2016.31.10.
+
+[17] D. S. Kerby, “The simple difference formula: An approach to teaching nonparametric correlation,” Comprehensive Psychology, vol. 3, art. 11.IT.3.1, 2014, doi: 10.2466/11.IT.3.1.
+
+[18] B. Efron and R. J. Tibshirani, An Introduction to the Bootstrap. New York, NY, USA: Chapman and Hall, 1993, doi: 10.1201/9780429246593.
+
+[19] H. B. Mann and D. R. Whitney, “On a test of whether one of two random variables is stochastically larger than the other,” Annals of Mathematical Statistics, vol. 18, no. 1, pp. 50–60, 1947, doi: 10.1214/aoms/1177730491.
+
+[20] S. Holm, “A simple sequentially rejective multiple test procedure,” Scandinavian Journal of Statistics, vol. 6, no. 2, pp. 65–70, 1979.
+
+[21] L. Breiman, “Random forests,” Machine Learning, vol. 45, no. 1, pp. 5–32, 2001, doi: 10.1023/A:1010933404324.
+
+[22] F. Pedregosa et al., “Scikit-learn: Machine learning in Python,” Journal of Machine Learning Research, vol. 12, pp. 2825–2830, 2011.
+
+[23] R. Kohavi, “A study of cross-validation and bootstrap for accuracy estimation and model selection,” in Proc. 14th Int. Joint Conf. Artificial Intelligence (IJCAI), 1995, pp. 1137–1143.
+
+[24] H. He and E. A. Garcia, “Learning from imbalanced data,” IEEE Trans. Knowledge and Data Engineering, vol. 21, no. 9, pp. 1263–1284, 2009, doi: 10.1109/TKDE.2008.239.
+
+[25] T. Saito and M. Rehmsmeier, “The precision-recall plot is more informative than the ROC plot when evaluating binary classifiers on imbalanced datasets,” PLOS ONE, vol. 10, no. 3, art. e0118432, 2015, doi: 10.1371/journal.pone.0118432.
+
+[26] G. W. Brier, “Verification of forecasts expressed in terms of probability,” Monthly Weather Review, vol. 78, no. 1, pp. 1–3, 1950, doi: 10.1175/1520-0493(1950)078<0001:VOFEIT>2.0.CO;2.
+
+[27] A. Niculescu-Mizil and R. Caruana, “Predicting good probabilities with supervised learning,” in Proc. 22nd Int. Conf. Machine Learning (ICML), 2005, pp. 625–632, doi: 10.1145/1102351.1102430.
+
+[28] G. C. Cawley and N. L. C. Talbot, “On over-fitting in model selection and subsequent selection bias in performance evaluation,” Journal of Machine Learning Research, vol. 11, pp. 2079–2107, 2010.
+
+[29] S. Kaufman, S. Rosset, C. Perlich, and O. Stitelman, “Leakage in data mining: Formulation, detection, and avoidance,” ACM Trans. Knowledge Discovery from Data, vol. 6, no. 4, art. 15, 2012, doi: 10.1145/2382577.2382579.
+
+[30] C. Strobl, A.-L. Boulesteix, T. Kneib, T. Augustin, and A. Zeileis, “Conditional variable importance for random forests,” BMC Bioinformatics, vol. 9, art. 307, 2008, doi: 10.1186/1471-2105-9-307.
+
+AUTHOR BIOGRAPHIES
+
+  ---------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  []                     Azuad Islam Ruhan is an undergraduate researcher in the Department of Computer Science and Engineering at Metropolitan University, Sylhet, Bangladesh. His research focuses on machine learning for behavioral prediction, natural language processing for Bangla, and educational technology for rural learners. An active competitive programmer with more than 1,000 solved problems, he is currently working on his undergraduate thesis, which draws on Cortical Labs' work on biological computing. He plans to pursue graduate studies in artificial intelligence and machine learning.
+
+  ---------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  ---------------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  []                     Golam Mostofa Naeem is a Senior Lecturer in the Department of Computer Science and Engineering at Metropolitan University, Bangladesh. His research interests are machine learning, natural language processing, explainable artificial intelligence, and deep learning, with a focus on AI methods that are interpretable and reliable enough to be used on real problems. Alongside his research, he teaches and works with students on academic projects.
+
+  ---------------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  ---------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  []                     Rakibul Islam Rafi is a final-year undergraduate student in the Department of Computer Science and Engineering at Metropolitan University, Sylhet, Bangladesh. His interests are artificial intelligence, computer vision, machine learning and deep learning, particularly image analysis and automated defect detection. He wants to build practical AI solutions to real-world problems and to take up research in computer vision and intelligent systems.
+
+  ---------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  ---------------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  []                     Sherin Afrin Mim is a final-year undergraduate student in Computer Science and Engineering at Metropolitan University, Bangladesh. Her research interests include natural language processing, machine learning, artificial intelligence and computational linguistics. She is also interested in compiler construction, algorithm design, and data-driven approaches to real-world computational problems.
+
+  ---------------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  ---------------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  []                     Nazira Bani Opi is an undergraduate student in the Department of Computer Science and Engineering at Metropolitan University, Bangladesh. Her research interest is machine learning and how it is applied in computer science. She is keen to learn about new technologies and about how artificial intelligence can be used to solve real-world problems, and she hopes to build her research skills and continue working in machine learning.
+
+  ---------------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  ---------------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  []                     Dewan Fahad Chowdhury is an undergraduate student of Computer Science and Engineering at Metropolitan University, Sylhet, Bangladesh. His research interests include machine learning, artificial intelligence, natural language processing and computer vision, particularly model evaluation, benchmarking and real-world data analytics. He has worked on academic projects in applied machine learning and software systems, and aims to build computational solutions that are scalable and easy to interpret.
+
+  ---------------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  ---------------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  []                     Md. Rejaul Korim Sadi is an undergraduate researcher in the Department of Computer Science and Engineering at Metropolitan University, Sylhet. His research interests are natural language processing, machine learning and trustworthy AI, with a particular focus on the structural causes of hallucination in large language models. His work tries to pair theory with controlled empirical measurement.
+
+  ---------------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
