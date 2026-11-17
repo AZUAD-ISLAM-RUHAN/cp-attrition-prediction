@@ -15,3 +15,5 @@ handle_pool.txt
 _generated_moved_aside/
 manuscript_build/v3/output/
 manuscript_build/inputs/AJSE_1999_v2_2026-11-06_CLEAN.docx
+manuscript_build/v3/response_v3.py
+manuscript_build/v3/final_inputs.json

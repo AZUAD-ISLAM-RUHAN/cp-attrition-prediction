@@ -1,0 +1,306 @@
+{
+ "T_obs_utc": "2026-06-23T13:44:17+00:00",
+ "cohort": {
+  "active": 2669,
+  "attrition": 908,
+  "source": "published cohort and labels (--cohort-csv)",
+  "cohort_accounts_without_records": 752
+ },
+ "b3_attrition_completeness": {
+  "attrition_accounts": 908,
+  "fewer_submissions_than_rated_contests": 0,
+  "rated_contests_before_first_retrieved_submission": 0,
+  "hit_10000_submission_cap": 0
+ },
+ "e4_accounts_rounding_to_3_0": [],
+ "windows": {
+  "6_months": {
+   "n_active": 1208,
+   "n_attrition": 298,
+   "note": "accounts with at least 5 rated contests and one accepted submission inside the window",
+   "models": {
+    "LR": {
+     "auc": 0.6503,
+     "auc_ci95": [
+      0.6147,
+      0.6844
+     ],
+     "fold_sd": 0.0336,
+     "pr_auc": 0.3163,
+     "pr_auc_baseline": 0.1979,
+     "brier": 0.1519,
+     "brier_baseline": 0.1587
+    },
+    "RF": {
+     "auc": 0.6241,
+     "auc_ci95": [
+      0.5868,
+      0.6606
+     ],
+     "fold_sd": 0.0374,
+     "pr_auc": 0.3195,
+     "pr_auc_baseline": 0.1979,
+     "brier": 0.1548,
+     "brier_baseline": 0.1587
+    }
+   },
+   "effect_sizes": [
+    {
+     "feature": "math_solve_rate",
+     "r": -0.116,
+     "r_ci95": [
+      -0.1994,
+      -0.038
+     ],
+     "p": 0.0019076458944665522,
+     "median_attrition": 0.472,
+     "median_active": 0.504,
+     "p_holm": 0.00953822947233276
+    },
+    {
+     "feature": "ds_solve_rate",
+     "r": -0.0429,
+     "r_ci95": [
+      -0.1243,
+      0.027
+     ],
+     "p": 0.2500413565205448,
+     "median_attrition": 0.4,
+     "median_active": 0.437,
+     "p_holm": 0.5000827130410896
+    },
+    {
+     "feature": "acceptance_rate",
+     "r": -0.138,
+     "r_ci95": [
+      -0.2141,
+      -0.0692
+     ],
+     "p": 0.0002202696668937356,
+     "median_attrition": 0.467,
+     "median_active": 0.5,
+     "p_holm": 0.0013216180013624135
+    },
+    {
+     "feature": "avg_struggle_minutes",
+     "r": -0.1734,
+     "r_ci95": [
+      -0.244,
+      -0.0957
+     ],
+     "p": 3.4651230148745818e-06,
+     "median_attrition": 68.85,
+     "median_active": 152.674,
+     "p_holm": 2.4255861104122073e-05
+    },
+    {
+     "feature": "upsolves_per_contest",
+     "r": -0.021,
+     "r_ci95": [
+      -0.0955,
+      0.0475
+     ],
+     "p": 0.5681636615865792,
+     "median_attrition": 0.2,
+     "median_active": 0.222,
+     "p_holm": 0.5681636615865792
+    },
+    {
+     "feature": "post_drop_recovery",
+     "r": 0.058,
+     "r_ci95": [
+      -0.017,
+      0.1296
+     ],
+     "p": 0.11845337233398255,
+     "median_attrition": 4.325,
+     "median_active": 0.133,
+     "p_holm": 0.35536011700194764
+    },
+    {
+     "feature": "editorial_dependency_index",
+     "r": -0.0907,
+     "r_ci95": [
+      -0.1559,
+      -0.0274
+     ],
+     "p": 0.0139232379989498,
+     "median_attrition": 12.925,
+     "median_active": 27.928,
+     "p_holm": 0.0556929519957992
+    },
+    {
+     "feature": "solved_per_contest",
+     "r": -0.291,
+     "r_ci95": [
+      -0.3548,
+      -0.2251
+     ],
+     "p": 6.643777222214109e-15,
+     "median_attrition": 4.4,
+     "median_active": 7.531,
+     "p_holm": 5.315021777771287e-14
+    }
+   ]
+  },
+  "12_months": {
+   "n_active": 1631,
+   "n_attrition": 460,
+   "note": "accounts with at least 5 rated contests and one accepted submission inside the window",
+   "models": {
+    "LR": {
+     "auc": 0.6085,
+     "auc_ci95": [
+      0.5797,
+      0.6377
+     ],
+     "fold_sd": 0.0293,
+     "pr_auc": 0.2988,
+     "pr_auc_baseline": 0.22,
+     "brier": 0.168,
+     "brier_baseline": 0.1716
+    },
+    "RF": {
+     "auc": 0.5863,
+     "auc_ci95": [
+      0.5569,
+      0.6159
+     ],
+     "fold_sd": 0.0395,
+     "pr_auc": 0.2724,
+     "pr_auc_baseline": 0.22,
+     "brier": 0.1742,
+     "brier_baseline": 0.1716
+    }
+   },
+   "effect_sizes": [
+    {
+     "feature": "math_solve_rate",
+     "r": -0.0796,
+     "r_ci95": [
+      -0.1395,
+      -0.0166
+     ],
+     "p": 0.009044461761470566,
+     "median_attrition": 0.473,
+     "median_active": 0.499,
+     "p_holm": 0.045222308807352826
+    },
+    {
+     "feature": "ds_solve_rate",
+     "r": -0.0688,
+     "r_ci95": [
+      -0.1327,
+      -0.0076
+     ],
+     "p": 0.023924337719986675,
+     "median_attrition": 0.4,
+     "median_active": 0.44,
+     "p_holm": 0.0956973508799467
+    },
+    {
+     "feature": "acceptance_rate",
+     "r": -0.0896,
+     "r_ci95": [
+      -0.1465,
+      -0.0282
+     ],
+     "p": 0.003304419554173116,
+     "median_attrition": 0.467,
+     "median_active": 0.486,
+     "p_holm": 0.019826517325038696
+    },
+    {
+     "feature": "avg_struggle_minutes",
+     "r": -0.1218,
+     "r_ci95": [
+      -0.1849,
+      -0.0584
+     ],
+     "p": 6.492458397634522e-05,
+     "median_attrition": 115.64,
+     "median_active": 268.468,
+     "p_holm": 0.00045447208783441653
+    },
+    {
+     "feature": "upsolves_per_contest",
+     "r": 0.0086,
+     "r_ci95": [
+      -0.0496,
+      0.0696
+     ],
+     "p": 0.7759708138832706,
+     "median_attrition": 0.24,
+     "median_active": 0.25,
+     "p_holm": 0.7759708138832706
+    },
+    {
+     "feature": "post_drop_recovery",
+     "r": 0.0285,
+     "r_ci95": [
+      -0.031,
+      0.0876
+     ],
+     "p": 0.3468775942998785,
+     "median_attrition": 2.685,
+     "median_active": 0.0,
+     "p_holm": 0.693755188599757
+    },
+    {
+     "feature": "editorial_dependency_index",
+     "r": -0.0632,
+     "r_ci95": [
+      -0.1235,
+      -0.0064
+     ],
+     "p": 0.03624980515313695,
+     "median_attrition": 27.574,
+     "median_active": 49.673,
+     "p_holm": 0.10874941545941086
+    },
+    {
+     "feature": "solved_per_contest",
+     "r": -0.2234,
+     "r_ci95": [
+      -0.2797,
+      -0.1682
+     ],
+     "p": 2.3697031454501623e-13,
+     "median_attrition": 5.375,
+     "median_active": 7.682,
+     "p_holm": 1.89576251636013e-12
+    }
+   ]
+  }
+ },
+ "subset_whole_history_check": {
+  "full cohort": {
+   "active": 3421,
+   "attrition": 908,
+   "LR_auc": 0.5959,
+   "LR_ci95": [
+    0.5744,
+    0.6163
+   ],
+   "RF_auc": 0.6113,
+   "RF_ci95": [
+    0.5905,
+    0.6314
+   ]
+  },
+  "accounts retrieved again": {
+   "active": 2669,
+   "attrition": 908,
+   "LR_auc": 0.5969,
+   "LR_ci95": [
+    0.5751,
+    0.6179
+   ],
+   "RF_auc": 0.6078,
+   "RF_ci95": [
+    0.5872,
+    0.6284
+   ]
+  }
+ }
+}
